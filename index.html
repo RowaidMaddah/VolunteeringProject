@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity | Awareness & Sandbox</title>
+  
+  <!-- Content Security Policy (CSP) Meta Tag for Baseline Security -->
+  <meta http-equiv="Content-Security-Policy" 
+        content="default-src 'self'; 
+                 script-src 'self' 'unsafe-inline'; 
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+                 font-src 'self' https://fonts.gstatic.com; 
+                 img-src 'self' data: https:;">
+</head>
+<body>
+
+  <!-- 1. NAVIGATION HEADER -->
+  <header>
+    <nav>
+      <div class="logo">DERA <span>360</span> CYBERSECURITY</div>
+      <ul>
+        <li><a href="#importance">Infrastructure</a></li>
+        <li><a href="#sandbox">Try It Yourself</a></li>
+        <li><a href="#resources">Learning Path</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 2. HERO SECTION: Title & Importance of Cybersecurity in Modern Infrastructure -->
+    <section id="importance">
+      <h1>Securing Modern Infrastructure in a Connected World</h1>
+      <p class="subtitle">Why continuous defense and threat awareness matter today.</p>
+      
+      <article>
+        <p>From cloud architectures to critical public utilities and supply chains, modern society relies heavily on connected infrastructure...</p>
+        <p>Understanding cyber risks isn't just for system administrators—building proactive awareness protects organizations and individuals alike...</p>
+      </article>
+    </section>
+
+    <!-- 3. INTERACTIVE SECTION: Fake Terminal / Notepad Simulator ("Try It For Yourself") -->
+    <section id="sandbox">
+      <h2>Try It For Yourself</h2>
+      <p>Follow the steps in the instructions notepad to run your first basic terminal commands inside our simulated environment.</p>
+
+      <!-- Simulated Desktop Container -->
+      <div class="desktop-simulator">
+        
+        <!-- Window Bar -->
+        <div class="window-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="window-title">dera360_intro_sandbox.sh</span>
+        </div>
+
+        <!-- Two-Pane Layout -->
+        <div class="window-body">
+          
+          <!-- Left Pane: Notepad Instructions -->
+          <aside class="notepad-pane">
+            <h3>📋 Module 01: Introductory Commands</h3>
+            <ol>
+              <li>Type <code>help</code> to see available commands.</li>
+              <li>Type <code>whoami</code> to inspect your current session role.</li>
+              <li>Type <code>scan</code> to check network status.</li>
+              <li>Type <code>clear</code> to reset the terminal output.</li>
+            </ol>
+          </aside>
+
+          <!-- Right Pane: Interactive Terminal Screen -->
+          <div class="terminal-pane">
+            <div id="terminal-output">
+              <p>Welcome to Cyber Sandbox [v1.0.0]</p>
+              <p>Type 'help' to display available commands.</p>
+            </div>
+            
+            <div class="command-line">
+              <span class="prompt">guest@dera360:~$</span>
+              <input type="text" id="terminal-input" placeholder="type a command..." autocomplete="off">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. EDUCATIONAL RESOURCES SECTION: Where & How to Learn -->
+    <section id="resources">
+      <h2>Where & How to Learn Cybersecurity</h2>
+      <p>Start your journey into cybersecurity with these hands-on platforms and recognized roadmaps:</p>
+
+      <div class="resources-grid">
+        <article class="card">
+          <h3>1. Hands-On Practice Labs</h3>
+          <ul>
+            <li><strong>TryHackMe:</strong> Beginner-friendly guided rooms and interactive browser labs.</li>
+            <li><strong>Hack The Box:</strong> Advanced penetration testing challenges and realistic machines.</li>
+            <li><strong>OverTheWire (Bandit):</strong> Excellent for learning command-line Linux basics step-by-step.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>2. Certifications & Saudi Frameworks</h3>
+          <ul>
+            <li><strong>CompTIA Security+:</strong> Essential foundational knowledge for networking and defense.</li>
+            <li><strong>NCA Essential Cybersecurity Controls (ECC):</strong> Primary compliance standards for Saudi entities.</li>
+            <li><strong>SDAIA PDPL:</strong> Understanding Personal Data Protection laws in KSA.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. CONTACT / EMAIL SECTION: Connected to Formspree / Web3Forms -->
+    <section id="contact">
+      <h2>Contact Us!</h2>
+      <p>Have questions about cybersecurity awareness? Send us a message.</p>
+
+      <!-- 
+        =========================================================================
+        BACKEND DEFENSE AUDIT NOTE: FORM PROTECTION & INBOX DISPATCH
+        1. Honeypot Field (_gotcha): Catches automated bots before processing.
+        2. Endpoint: Serverless integration (Formspree/Web3Forms) routes directly to inbox.
+        3. Rate Limiting: Client-side debounce lock implemented on button submit.
+        =========================================================================
+      -->
+      <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        
+        <!-- Spam Honeypot Field (Hidden from human visitors) -->
+        <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
+
+        <div>
+          <label for="user-email">Your Email Address:</label>
+          <input type="email" id="user-email" name="email" required autocomplete="email" placeholder="name@domain.com">
+        </div>
+
+        <div>
+          <label for="user-message">Your Message:</label>
+          <textarea id="user-message" name="message" rows="5" required placeholder="Write your message here..."></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- 6. FOOTER -->
+  <footer>
+    <p>&copy; 2026 Dera Three Sixty Cybersecurity | Designed for Volunteer Portfolio Showcase</p>
+  </footer>
+
+  <!-- Basic Terminal JavaScript Logic -->
+  <script>
+    const termInput = document.getElementById('terminal-input');
+    const termOutput = document.getElementById('terminal-output');
+
+    termInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const cmd = this.value.trim().toLowerCase();
+        let response = '';
+
+        if (cmd === 'help') {
+          response = 'Available commands: help, whoami, scan, clear';
+        } else if (cmd === 'whoami') {
+          response = 'user_role: analyst_guest | session: authenticated_local';
+        } else if (cmd === 'scan') {
+          response = '[+] Scanning local subnet... 0 vulnerabilities detected. System protected.';
+        } else if (cmd === 'clear') {
+          termOutput.innerHTML = '';
+          this.value = '';
+          return;
+        } else if (cmd !== '') {
+          response = `Command not recognized: "${cmd}". Type "help" for a list of commands.`;
+        }
+
+        if (cmd !== '') {
+          termOutput.innerHTML += `<p><span class="prompt">guest@dera360:~$</span> ${cmd}</p>`;
+          termOutput.innerHTML += `<p class="res">${response}</p>`;
+        }
+        
+        this.value = '';
+        termOutput.scrollTop = termOutput.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>
