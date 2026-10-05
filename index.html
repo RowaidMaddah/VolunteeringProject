@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cybersecurity | Awareness & Sandbox</title>
+  <title>Dera Three Sixty Cybersecurity | Awareness & Sandbox</title>
   
-  <!-- Content Security Policy (CSP) Meta Tag for Baseline Security -->
+  <!-- Content Security Policy (CSP) Meta Tag -->
   <meta http-equiv="Content-Security-Policy" 
         content="default-src 'self'; 
-                 script-src 'self' 'unsafe-inline'; 
-                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+                 script-src 'self'; 
+                 style-src 'self' https://fonts.googleapis.com; 
                  font-src 'self' https://fonts.gstatic.com; 
                  img-src 'self' data: https:;">
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -29,7 +32,7 @@
   </header>
 
   <main>
-    <!-- 2. HERO SECTION: Title & Importance of Cybersecurity in Modern Infrastructure -->
+    <!-- 2. HERO SECTION -->
     <section id="importance">
       <h1>Securing Modern Infrastructure in a Connected World</h1>
       <p class="subtitle">Why continuous defense and threat awareness matter today.</p>
@@ -40,46 +43,83 @@
       </article>
     </section>
 
-    <!-- 3. INTERACTIVE SECTION: Fake Terminal / Notepad Simulator ("Try It For Yourself") -->
+    <!-- 3. INTERACTIVE SECTION: Simulated Desktop Environment -->
     <section id="sandbox">
       <h2>Try It For Yourself</h2>
-      <p>Follow the steps in the instructions notepad to run your first basic terminal commands inside our simulated environment.</p>
+      <p>Double-click the <strong>Terminal</strong> icon on the virtual desktop to launch the interactive command shell.</p>
 
       <!-- Simulated Desktop Container -->
       <div class="desktop-simulator">
         
-        <!-- Window Bar -->
-        <div class="window-header">
-          <span class="dot red"></span>
-          <span class="dot yellow"></span>
-          <span class="dot green"></span>
-          <span class="window-title">dera360_intro_sandbox.sh</span>
+        <!-- Desktop Top Taskbar -->
+        <div class="desktop-taskbar">
+          <div class="taskbar-left">
+            <span class="os-logo">🌀 Kali Linux</span>
+            <span class="taskbar-item active">Desktop</span>
+          </div>
+          <div class="taskbar-right">
+            <span>🔊 100%</span>
+            <span>📶 Connected</span>
+            <span id="system-clock">18:29</span>
+          </div>
         </div>
 
-        <!-- Two-Pane Layout -->
-        <div class="window-body">
+        <!-- Main Desktop Workspace -->
+        <div class="desktop-workspace">
           
-          <!-- Left Pane: Notepad Instructions -->
-          <aside class="notepad-pane">
-            <h3>📋 Module 01: Introductory Commands</h3>
-            <ol>
-              <li>Type <code>help</code> to see available commands.</li>
-              <li>Type <code>whoami</code> to inspect your current session role.</li>
-              <li>Type <code>scan</code> to check network status.</li>
-              <li>Type <code>clear</code> to reset the terminal output.</li>
-            </ol>
+          <!-- Left Pane: Task Instructions & Desktop Icons -->
+          <aside class="desktop-sidebar">
+            <div class="instructions-card">
+              <h3>📋 Module 01: Lab Tasks</h3>
+              <ol>
+                <li>Double-click the <strong>Terminal</strong> icon to launch the shell.</li>
+                <li>Type <code>help</code> to display available commands.</li>
+                <li>Type <code>whoami</code> to inspect your role.</li>
+                <li>Type <code>scan</code> to analyze the local network.</li>
+                <li>Type <code>clear</code> to reset output.</li>
+              </ol>
+            </div>
+
+            <!-- Clickable Desktop Icons -->
+            <div class="desktop-icons">
+              <div class="icon" id="terminal-icon-btn">
+                <div class="icon-img terminal-icon">&gt;_</div>
+                <span>Terminal</span>
+              </div>
+              <div class="icon" id="browser-icon-btn">
+                <div class="icon-img browser-icon">🌐</div>
+                <span>Mozilla Firefox</span>
+              </div>
+            </div>
           </aside>
 
-          <!-- Right Pane: Interactive Terminal Screen -->
-          <div class="terminal-pane">
-            <div id="terminal-output">
-              <p>Welcome to Cyber Sandbox [v1.0.0]</p>
-              <p>Type 'help' to display available commands.</p>
-            </div>
-            
-            <div class="command-line">
-              <span class="prompt">guest@dera360:~$</span>
-              <input type="text" id="terminal-input" placeholder="type a command..." autocomplete="off">
+          <!-- Right Pane: Interactive Floating Terminal Window -->
+          <div class="window-container">
+            <div class="desktop-window" id="terminal-window">
+              
+              <!-- Window Title Bar -->
+              <div class="window-header">
+                <div class="window-controls">
+                  <span class="dot red" id="close-terminal-btn"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <span class="window-title">Terminal - guest@dera360:~</span>
+              </div>
+
+              <!-- Terminal Content -->
+              <div class="window-body terminal-pane">
+                <div id="terminal-output">
+                  <p>Welcome to Dera 360 Cyber Sandbox [v1.0.0]</p>
+                  <p>Type 'help' to display available commands.</p>
+                </div>
+                
+                <div class="command-line">
+                  <span class="prompt">guest@dera360:~$</span>
+                  <input type="text" id="terminal-input" placeholder="type a command..." autocomplete="off">
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -87,7 +127,7 @@
       </div>
     </section>
 
-    <!-- 4. EDUCATIONAL RESOURCES SECTION: Where & How to Learn -->
+    <!-- 4. EDUCATIONAL RESOURCES SECTION -->
     <section id="resources">
       <h2>Where & How to Learn Cybersecurity</h2>
       <p>Start your journey into cybersecurity with these hands-on platforms and recognized roadmaps:</p>
@@ -113,23 +153,14 @@
       </div>
     </section>
 
-    <!-- 5. CONTACT / EMAIL SECTION: Connected to Formspree / Web3Forms -->
+    <!-- 5. CONTACT / EMAIL SECTION -->
     <section id="contact">
       <h2>Contact Us!</h2>
       <p>Have questions about cybersecurity awareness? Send us a message.</p>
 
-      <!-- 
-        =========================================================================
-        BACKEND DEFENSE AUDIT NOTE: FORM PROTECTION & INBOX DISPATCH
-        1. Honeypot Field (_gotcha): Catches automated bots before processing.
-        2. Endpoint: Serverless integration (Formspree/Web3Forms) routes directly to inbox.
-        3. Rate Limiting: Client-side debounce lock implemented on button submit.
-        =========================================================================
-      -->
       <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        
-        <!-- Spam Honeypot Field (Hidden from human visitors) -->
-        <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
+        <!-- Spam Honeypot Field -->
+        <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
 
         <div>
           <label for="user-email">Your Email Address:</label>
@@ -151,39 +182,7 @@
     <p>&copy; 2026 Dera Three Sixty Cybersecurity | Designed for Volunteer Portfolio Showcase</p>
   </footer>
 
-  <!-- Basic Terminal JavaScript Logic -->
-  <script>
-    const termInput = document.getElementById('terminal-input');
-    const termOutput = document.getElementById('terminal-output');
-
-    termInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        const cmd = this.value.trim().toLowerCase();
-        let response = '';
-
-        if (cmd === 'help') {
-          response = 'Available commands: help, whoami, scan, clear';
-        } else if (cmd === 'whoami') {
-          response = 'user_role: analyst_guest | session: authenticated_local';
-        } else if (cmd === 'scan') {
-          response = '[+] Scanning local subnet... 0 vulnerabilities detected. System protected.';
-        } else if (cmd === 'clear') {
-          termOutput.innerHTML = '';
-          this.value = '';
-          return;
-        } else if (cmd !== '') {
-          response = `Command not recognized: "${cmd}". Type "help" for a list of commands.`;
-        }
-
-        if (cmd !== '') {
-          termOutput.innerHTML += `<p><span class="prompt">guest@dera360:~$</span> ${cmd}</p>`;
-          termOutput.innerHTML += `<p class="res">${response}</p>`;
-        }
-        
-        this.value = '';
-        termOutput.scrollTop = termOutput.scrollHeight;
-      }
-    });
-  </script>
+  <!-- External JavaScript Script File -->
+  <script src="script.js"></script>
 </body>
 </html>
