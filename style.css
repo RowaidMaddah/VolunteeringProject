@@ -12,7 +12,7 @@ body {
   line-height: 1.6;
 }
 
-/* Header & Navigation */
+
 header {
   background-color: #1e293b;
   border-bottom: 1px solid #334155;
@@ -60,7 +60,7 @@ nav a:hover {
   color: #38bdf8;
 }
 
-/* Main Layout */
+
 main {
   max-width: 1200px;
   margin: 0 auto;
@@ -87,7 +87,7 @@ article p {
   color: #cbd5e1;
 }
 
-/* Simulated Desktop Environment (Section 3) */
+
 .desktop-simulator {
   background-color: #0d1117;
   border: 1px solid #30363d;
@@ -126,7 +126,6 @@ article p {
   position: relative;
 }
 
-/* Desktop Sidebar & Icons */
 .desktop-sidebar {
   background-color: rgba(15, 23, 42, 0.85);
   border-right: 1px solid #334155;
@@ -203,7 +202,6 @@ article p {
   color: #e2e8f0;
 }
 
-/* Desktop Terminal Window */
 .window-container {
   position: relative;
   padding: 20px;
@@ -300,7 +298,6 @@ article p {
   flex: 1;
 }
 
-/* Resources Section */
 .resources-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -323,7 +320,6 @@ article p {
   margin-bottom: 8px;
 }
 
-/* Contact Section & Form */
 #contact-form {
   background-color: #1e293b;
   border: 1px solid #334155;
@@ -371,7 +367,6 @@ article p {
   background: #0369a1;
 }
 
-/* Footer */
 footer {
   text-align: center;
   padding: 20px;
