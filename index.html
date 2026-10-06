@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dera Three Sixty Cybersecurity | Awareness & Sandbox</title>
+
   
-  <!-- Content Security Policy (CSP) Meta Tag -->
-  <meta http-equiv="Content-Security-Policy" 
+  <!---<meta http-equiv="Content-Security-Policy" 
         content="default-src 'self'; 
                  script-src 'self'; 
                  style-src 'self' https://fonts.googleapis.com; 
                  font-src 'self' https://fonts.gstatic.com; 
-                 img-src 'self' data: https:;">
+                 img-src 'self' data: https:;"> will use this later as well--->
 
-  <!-- External Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <!-- The CSS file -->
+  <link rel="stylesheet" href="style.css?v=1.1">
 </head>
 <body>
 
-  <!-- 1. NAVIGATION HEADER -->
+
   <header>
     <nav>
       <div class="logo">DERA <span>360</span> CYBERSECURITY</div>
@@ -32,7 +32,7 @@
   </header>
 
   <main>
-    <!-- 2. HERO SECTION -->
+
     <section id="importance">
       <h1>Securing Modern Infrastructure in a Connected World</h1>
       <p class="subtitle">Why continuous defense and threat awareness matter today.</p>
@@ -48,15 +48,15 @@
       </article>
     </section>
 
-    <!-- 3. INTERACTIVE SECTION: Simulated Desktop Environment -->
+    <hr class="section-divider">
+
     <section id="sandbox">
       <h2>Try It For Yourself</h2>
       <p>Double-click the <strong>Terminal</strong> icon on the virtual desktop to launch the interactive command shell.</p>
 
-      <!-- Simulated Desktop Container -->
+
       <div class="desktop-simulator">
-        
-        <!-- Desktop Top Taskbar -->
+    
         <div class="desktop-taskbar">
           <div class="taskbar-left">
             <span class="os-logo">🌀 Kali Linux</span>
@@ -69,10 +69,9 @@
           </div>
         </div>
 
-        <!-- Main Desktop Workspace -->
+    
         <div class="desktop-workspace">
           
-          <!-- Left Pane: Task Instructions & Desktop Icons -->
           <aside class="desktop-sidebar">
             <div class="instructions-card">
               <h3>📋 Module 01: Lab Tasks</h3>
@@ -85,7 +84,7 @@
               </ol>
             </div>
 
-            <!-- Clickable Desktop Icons -->
+
             <div class="desktop-icons">
               <div class="icon" id="terminal-icon-btn">
                 <div class="icon-img terminal-icon">&gt;_</div>
@@ -98,11 +97,11 @@
             </div>
           </aside>
 
-          <!-- Right Pane: Interactive Floating Terminal Window -->
+
           <div class="window-container">
             <div class="desktop-window" id="terminal-window">
               
-              <!-- Window Title Bar -->
+           
               <div class="window-header">
                 <div class="window-controls">
                   <span class="dot red" id="close-terminal-btn"></span>
@@ -112,7 +111,7 @@
                 <span class="window-title">Terminal - guest@dera360:~</span>
               </div>
 
-              <!-- Terminal Content -->
+          
               <div class="window-body terminal-pane">
                 <div id="terminal-output">
                   <p>Welcome to Dera 360 Cyber Sandbox [v1.0.0]</p>
@@ -132,7 +131,9 @@
       </div>
     </section>
 
-    <!-- 4. EDUCATIONAL RESOURCES SECTION -->
+    
+    <hr class="section-divider">
+
     <section id="resources">
       <h2>Where & How to Learn Cybersecurity</h2>
       <p>Start your journey into cybersecurity with these hands-on platforms and recognized roadmaps:</p>
@@ -158,14 +159,16 @@
       </div>
     </section>
 
-    <!-- 5. CONTACT / EMAIL SECTION -->
+    <hr class="section-divider">
+
+    
     <section id="contact">
       <h2>Contact Us!</h2>
       <p>Have questions about cybersecurity awareness? Send us a message.</p>
 
       <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <!-- Spam Honeypot Field -->
-        <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
+   
+        <!---<input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">---> <!---will use this later for spam activity and detection etc--->
 
         <div>
           <label for="user-email">Your Email Address:</label>
@@ -182,12 +185,11 @@
     </section>
   </main>
 
-  <!-- 6. FOOTER -->
   <footer>
     <p>&copy; 2026 Dera Three Sixty Cybersecurity | Designed for Volunteer Portfolio Showcase</p>
   </footer>
 
-  <!-- External JavaScript Script File -->
+  <!-- The JS file -->
   <script src="script.js"></script>
 </body>
 </html>
