@@ -17,12 +17,12 @@ async function sendCommand(userInput) {
   }
 }
 
-function googleTranslateElementInit() {
+window.googleTranslateElementInit = function() {
   new google.translate.TranslateElement({
     pageLanguage: 'en',
-    includedLanguages: 'en,ar,es,fr,de,zh-CN', // Included core languages (Arabic included)
+    includedLanguages: 'en,ar,es,fr,de,zh-CN', // Includes Arabic (ar)
     layout: google.translate.TranslateElement.InlineLayout.SIMPLE
   }, 'google_translate_element');
-}
+};
 
 
