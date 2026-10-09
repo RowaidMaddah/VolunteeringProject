@@ -18,6 +18,8 @@ body {
   color: #f8fafc;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
+  top: 0px !important;
+  position: static !important;
 }
 
 /* Header & Navigation */
@@ -135,7 +137,7 @@ article p:last-child {
   margin-top: 24px;
 }
 
-/* Simulated Desktop Environment (Section 3) */
+/* Simulated Desktop Environment */
 .desktop-simulator {
   background-color: #0d1117;
   border: 1px solid rgba(56, 189, 248, 0.3);
@@ -461,105 +463,13 @@ footer {
 
 /* --- GOOGLE TRANSLATE CYBER WIDGET STYLES --- */
 
-/* Container in Nav Header */
 .language-selector {
   display: flex;
   align-items: center;
   margin-left: 15px;
 }
 
-/* Base Widget Styling */
-.goog-te-gadget-simple {
-  background-color: #0f172a !important;
-  border: 1px solid #38bdf8 !important;
-  padding: 4px 10px !important;
-  border-radius: 6px !important;
-  font-size: 13px !important;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.goog-te-gadget-simple:hover {
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
-}
-
-.goog-te-gadget-simple .goog-te-menu-value span {
-  color: #38bdf8 !important;
-  font-weight: 600;
-}
-
-.goog-te-gadget-icon {
-  display: none !important;
-}
-
-/* Hide Top Google Attribution Banner */
-body {
-  top: 0px !important;
-}
-
-.goog-te-banner-frame {
-  display: none !important;
-}
-
-/* Pop-up Menu Dark Mode Overrides */
-.goog-te-menu-frame {
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.3) !important;
-  border-radius: 8px !important;
-  border: 1px solid #38bdf8 !important;
-}
-
-.goog-te-menu2 {
-  background-color: #0f172a !important;
-  border: none !important;
-}
-
-.goog-te-menu2-item div {
-  color: #f8fafc !important;
-  background-color: #0f172a !important;
-}
-
-.goog-te-menu2-item:hover div {
-  background-color: #1e293b !important;
-  color: #38bdf8 !important;
-}
-
-/* Remove Hover Highlight Boxes */
-.goog-text-highlight {
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-
-/* Arabic RTL Support */
-html.translated-rtl body {
-  direction: rtl;
-  text-align: right;
-}
-
-/* 1. COMPLETELY HIDE GOOGLE TOP TOOLBAR BANNER */
-.goog-te-banner-frame, 
-.goog-te-banner,
-.skiptranslate {
-  display: none !important;
-}
-
-body {
-  top: 0px !important;
-  position: static !important;
-}
-
-/* Hide top frame spacing added dynamically by Google */
-iframe.goog-te-banner-frame {
-  display: none !important;
-}
-
-html.translated-rtl .language-selector {
-  margin-left: 0;
-  margin-right: 15px;
-}
-
-/* 2. STYLE THE DROPDOWN POPUP MENU */
-
-/* Main button widget styling */
+/* Main Button Widget Styling */
 .goog-te-gadget-simple {
   background-color: #0f172a !important;
   border: 1px solid #38bdf8 !important;
@@ -584,27 +494,38 @@ html.translated-rtl .language-selector {
   font-weight: 500;
 }
 
-/* Hide default google arrow icon */
 .goog-te-gadget-icon {
   display: none !important;
-}
-
-/* Override the white background iframe container dynamically created by Google */
-.VIpgJd-yD36eb-LgA82-hAhe2 {
-  background-color: #0f172a !important;
-  border: 1px solid #38bdf8 !important;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3) !important;
-  border-radius: 8px !important;
-}
-
-/* Style list items inside the iframe pop-up */
-iframe.goog-te-menu-frame {
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4) !important;
-  border-radius: 8px !important;
 }
 
 .cyber-globe-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Completely Hide Google Top Toolbar Frame */
+.goog-te-banner-frame, 
+.goog-te-banner,
+iframe.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+
+/* Remove Text Hover Highlights */
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Arabic RTL Support */
+html.translated-rtl body {
+  direction: rtl;
+  text-align: right;
+}
+
+html.translated-rtl .language-selector {
+  margin-left: 0;
+  margin-right: 15px;
 }
