@@ -100,3 +100,19 @@ window.googleTranslateElementInit = function() {
     }
   }, 1000);
 };
+
+const observer = new MutationObserver(() => {
+  if (document.body.style.top !== '0px') {
+    document.body.style.top = '0px';
+  }
+  const banner = document.querySelector('.goog-te-banner-frame');
+  if (banner) {
+    banner.remove(); // Completely purges the banner element from DOM if injected
+  }
+});
+
+// Start watching the body for dynamic style injections by Google
+observer.observe(document.body, {
+  attributes: true,
+  attributeFilter: ['style']
+});
