@@ -535,6 +535,23 @@ html.translated-rtl body {
   text-align: right;
 }
 
+/* 1. COMPLETELY HIDE GOOGLE TOP TOOLBAR BANNER */
+.goog-te-banner-frame, 
+.goog-te-banner,
+.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+  position: static !important;
+}
+
+/* Hide top frame spacing added dynamically by Google */
+iframe.goog-te-banner-frame {
+  display: none !important;
+}
+
 html.translated-rtl .language-selector {
   margin-left: 0;
   margin-right: 15px;
