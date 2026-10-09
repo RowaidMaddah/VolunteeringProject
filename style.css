@@ -458,3 +458,43 @@ footer {
   font-size: 13px;
   color: #64748b;
 }
+
+/* Language Translator Container in Header */
+.language-selector {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+/* Custom styling for Google Translate Dropdown */
+.goog-te-gadget-simple {
+  background-color: #0f172a !important;
+  border: 1px solid #38bdf8 !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.goog-te-gadget-simple:hover {
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+.goog-te-gadget-simple .goog-te-menu-value span {
+  color: #38bdf8 !important;
+  font-weight: 600;
+}
+
+.goog-te-gadget-icon {
+  display: none !important; /* Hide Google default icon for cleaner look */
+}
+
+/* Hide Google attribution banner at top after translation */
+body {
+  top: 0px !important;
+}
+
+.goog-te-banner-frame {
+  display: none !important;
+}
