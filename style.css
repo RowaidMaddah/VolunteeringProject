@@ -459,14 +459,16 @@ footer {
   color: #64748b;
 }
 
-/* Language Translator Container in Header */
+/* --- GOOGLE TRANSLATE CYBER WIDGET STYLES --- */
+
+/* Container in Nav Header */
 .language-selector {
   display: flex;
   align-items: center;
   margin-left: 15px;
 }
 
-/* Custom styling for Google Translate Dropdown */
+/* Base Widget Styling */
 .goog-te-gadget-simple {
   background-color: #0f172a !important;
   border: 1px solid #38bdf8 !important;
@@ -487,14 +489,53 @@ footer {
 }
 
 .goog-te-gadget-icon {
-  display: none !important; /* Hide Google default icon for cleaner look */
+  display: none !important;
 }
 
-/* Hide Google attribution banner at top after translation */
+/* Hide Top Google Attribution Banner */
 body {
   top: 0px !important;
 }
 
 .goog-te-banner-frame {
   display: none !important;
+}
+
+/* Pop-up Menu Dark Mode Overrides */
+.goog-te-menu-frame {
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.3) !important;
+  border-radius: 8px !important;
+  border: 1px solid #38bdf8 !important;
+}
+
+.goog-te-menu2 {
+  background-color: #0f172a !important;
+  border: none !important;
+}
+
+.goog-te-menu2-item div {
+  color: #f8fafc !important;
+  background-color: #0f172a !important;
+}
+
+.goog-te-menu2-item:hover div {
+  background-color: #1e293b !important;
+  color: #38bdf8 !important;
+}
+
+/* Remove Hover Highlight Boxes */
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Arabic RTL Support */
+html.translated-rtl body {
+  direction: rtl;
+  text-align: right;
+}
+
+html.translated-rtl .language-selector {
+  margin-left: 0;
+  margin-right: 15px;
 }
