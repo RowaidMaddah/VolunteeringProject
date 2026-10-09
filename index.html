@@ -5,19 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dera Three Sixty Cybersecurity | Awareness & Sandbox</title>
 
-  
-  <!---<meta http-equiv="Content-Security-Policy" 
-        content="default-src 'self'; 
-                 script-src 'self'; 
-                 style-src 'self' https://fonts.googleapis.com; 
-                 font-src 'self' https://fonts.gstatic.com; 
-                 img-src 'self' data: https:;"> will use this later as well--->
-
   <!-- The CSS file -->
   <link rel="stylesheet" href="style.css?v=1.1">
 </head>
 <body>
-
 
   <header>
     <nav>
@@ -58,9 +49,7 @@
       <h2>Try It For Yourself</h2>
       <p>Double-click the <strong>Terminal</strong> icon on the virtual desktop to launch the interactive command shell.</p>
 
-
       <div class="desktop-simulator">
-    
         <div class="desktop-taskbar">
           <div class="taskbar-left">
             <span class="os-logo">🌀 Kali Linux</span>
@@ -73,9 +62,7 @@
           </div>
         </div>
 
-    
         <div class="desktop-workspace">
-          
           <aside class="desktop-sidebar">
             <div class="instructions-card">
               <h3>📋 Module 01: Lab Tasks</h3>
@@ -87,7 +74,6 @@
                 <li>Type <code>clear</code> to reset output.</li>
               </ol>
             </div>
-
 
             <div class="desktop-icons">
               <div class="icon" id="terminal-icon-btn">
@@ -101,11 +87,8 @@
             </div>
           </aside>
 
-
           <div class="window-container">
             <div class="desktop-window" id="terminal-window">
-              
-           
               <div class="window-header">
                 <div class="window-controls">
                   <span class="dot red" id="close-terminal-btn"></span>
@@ -115,7 +98,6 @@
                 <span class="window-title">Terminal - guest@dera360:~</span>
               </div>
 
-          
               <div class="window-body terminal-pane">
                 <div id="terminal-output">
                   <p>Welcome to Dera 360 Cyber Sandbox [v1.0.0]</p>
@@ -135,7 +117,6 @@
       </div>
     </section>
 
-    
     <hr class="section-divider">
 
     <section id="resources">
@@ -165,15 +146,11 @@
 
     <hr class="section-divider">
 
-    
     <section id="contact">
       <h2>Contact Us!</h2>
       <p>Have questions about cybersecurity awareness? Send us a message.</p>
 
-      <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-   
-        <!---<input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">---> <!---will use this later for spam activity and detection etc--->
-
+      <form id="contact-form">
         <div>
           <label for="user-email">Your Email Address:</label>
           <input type="email" id="user-email" name="email" required autocomplete="email" placeholder="name@domain.com">
@@ -193,8 +170,10 @@
     <p>&copy; 2026 Dera Three Sixty Cybersecurity | Designed for Volunteer Portfolio Showcase</p>
   </footer>
 
-  <!-- The JS file -->
+  <!-- 1. Load Local JavaScript First -->
   <script src="script.js"></script>
+  
+  <!-- 2. Load Google Translate External API Second -->
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
