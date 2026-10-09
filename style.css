@@ -556,3 +556,55 @@ html.translated-rtl .language-selector {
   margin-left: 0;
   margin-right: 15px;
 }
+
+/* 2. STYLE THE DROPDOWN POPUP MENU */
+
+/* Main button widget styling */
+.goog-te-gadget-simple {
+  background-color: #0f172a !important;
+  border: 1px solid #38bdf8 !important;
+  padding: 6px 12px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-family: inherit !important;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+}
+
+.goog-te-gadget-simple:hover {
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5) !important;
+  border-color: #00f0ff !important;
+}
+
+.goog-te-gadget-simple span {
+  color: #38bdf8 !important;
+  font-weight: 500;
+}
+
+/* Hide default google arrow icon */
+.goog-te-gadget-icon {
+  display: none !important;
+}
+
+/* Override the white background iframe container dynamically created by Google */
+.VIpgJd-yD36eb-LgA82-hAhe2 {
+  background-color: #0f172a !important;
+  border: 1px solid #38bdf8 !important;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3) !important;
+  border-radius: 8px !important;
+}
+
+/* Style list items inside the iframe pop-up */
+iframe.goog-te-menu-frame {
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4) !important;
+  border-radius: 8px !important;
+}
+
+.cyber-globe-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
