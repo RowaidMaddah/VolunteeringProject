@@ -18,8 +18,6 @@ body {
   color: #f8fafc;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
-  top: 0px !important;
-  position: static !important;
 }
 
 /* Header & Navigation */
@@ -504,16 +502,31 @@ footer {
   justify-content: center;
 }
 
-/* Completely Hide Google Top Toolbar Frame */
-.goog-te-banner-frame, 
-.goog-te-banner,
-iframe.goog-te-banner-frame {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
+/* --- COMPLETE BANNER SUPPRESSION --- */
+
+/* Force body and HTML to stay at top 0, ignoring Google inline offsets */
+html, body {
+  top: 0px !important;
+  position: static !important;
+  margin-top: 0px !important;
 }
 
-/* Remove Text Hover Highlights */
+/* Target and obliterate the top banner iframe container */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0px !important;
+  width: 0px !important;
+  border: none !important;
+  pointer-events: none !important;
+}
+
+/* Remove text hover highlight popups */
 .goog-text-highlight {
   background-color: transparent !important;
   box-shadow: none !important;
