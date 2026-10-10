@@ -11,10 +11,15 @@ async function sendCommand(userInput) {
       body: JSON.stringify({ command: userInput })
     });
 
+    if (!response.ok) {
+      return `Server Error: HTTP ${response.status}`;
+    }
+
     const data = await response.json();
     return data.output; 
   } catch (error) {
-    return 'Error: Cannot connect to FastAPI (Python) backend server.';
+    console.error("Backend connection error:", error);
+    return 'Error: Cannot connect to FastAPI backend server.';
   }
 }
 
@@ -27,19 +32,19 @@ const tutorialSteps = [
     title: "1. Network Reconnaissance",
     desc: "Type <code>scan</code> to discover active network services on the target machine.",
     expectedCmd: "scan",
-    hint: "Commands are lowercase. Type: scan"
+    hint: "Type: scan"
   },
   {
     step: 2,
     title: "2. Probe Target Portal",
-    desc: "Port 8080 is open! Inspect the target server headers using <code>curl http://target:8080</code>.",
+    desc: "Port 8080 is open! Inspect headers using <code>curl http://target:8080</code>.",
     expectedCmd: "curl http://target:8080",
     hint: "Type: curl http://target:8080"
   },
   {
     step: 3,
     title: "3. Perform SQL Injection",
-    desc: "Test authentication bypass using the payload: <code>sqli ' or '1'='1</code>.",
+    desc: "Bypass authentication using: <code>sqli ' or '1'='1</code>.",
     expectedCmd: "sqli ' or '1'='1",
     hint: "Type: sqli ' or '1'='1"
   },
@@ -59,6 +64,24 @@ function renderStep(index) {
   const popup = document.getElementById('tutorial-popup');
   if (!popup) return;
 
+  // Update Back/Next Arrow Button States
+  const prevBtn = document.getElementById('prev-step-btn');
+  const nextBtn = document.getElementById('next-step-btn');
+  if (prevBtn) prevBtn.disabled = index === 0;
+  if (nextBtn) nextBtn.disabled = index >= tutorialSteps.length - 1;
+
+  // Highlight active task in sidebar
+  for (let i = 1; i <= 4; i++) {
+    const taskLi = document.getElementById(`task-${i}`);
+    if (taskLi) {
+      if (i === index + 1) {
+        taskLi.classList.add('active-task');
+      } else {
+        taskLi.classList.remove('active-task');
+      }
+    }
+  }
+
   if (index >= tutorialSteps.length) {
     document.getElementById('step-badge').textContent = "Complete!";
     document.getElementById('step-title').textContent = "🎉 Lab Completed!";
@@ -72,16 +95,6 @@ function renderStep(index) {
   document.getElementById('step-title').textContent = stepData.title;
   document.getElementById('step-desc').innerHTML = stepData.desc;
   document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
-}
-
-function checkTutorialProgress(userCommand) {
-  if (!isTutorialMode || currentStepIndex >= tutorialSteps.length) return;
-
-  const currentStep = tutorialSteps[currentStepIndex];
-  if (userCommand.trim().toLowerCase() === currentStep.expectedCmd.toLowerCase()) {
-    currentStepIndex++;
-    renderStep(currentStepIndex);
-  }
 }
 
 // ==========================================
@@ -98,6 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnSandbox = document.getElementById('btn-sandbox-mode');
   const tutorialPopup = document.getElementById('tutorial-popup');
   const closePopupBtn = document.getElementById('close-popup');
+  const prevBtn = document.getElementById('prev-step-btn');
+  const nextBtn = document.getElementById('next-step-btn');
 
   // Mode Switcher Controls
   if (btnTutorial && btnSandbox) {
@@ -123,6 +138,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Manual Arrow Navigation Controls
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentStepIndex > 0) {
+        currentStepIndex--;
+        renderStep(currentStepIndex);
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentStepIndex < tutorialSteps.length - 1) {
+        currentStepIndex++;
+        renderStep(currentStepIndex);
+      }
+    });
+  }
+
   // Handle Command Submission (Enter Key)
   if (terminalInput) {
     terminalInput.addEventListener('keydown', async (event) => {
@@ -143,16 +177,13 @@ document.addEventListener('DOMContentLoaded', () => {
         terminalInput.value = '';
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
-        // 3. Check & update tutorial step state
-        checkTutorialProgress(command);
-
-        // 4. Handle client-side 'clear'
+        // 3. Handle client-side 'clear'
         if (command.toLowerCase() === 'clear') {
           terminalOutput.innerHTML = '';
           return;
         }
 
-        // 5. Send command to FastAPI backend & print response
+        // 4. Send command to FastAPI backend
         const result = await sendCommand(command);
 
         const responseLine = document.createElement('p');
@@ -161,6 +192,27 @@ document.addEventListener('DOMContentLoaded', () => {
         terminalOutput.appendChild(responseLine);
 
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+        // 5. Validate Step Completion ONLY IF server responded successfully
+        if (isTutorialMode && currentStepIndex < tutorialSteps.length) {
+          const serverSuccess = !result.startsWith("Error:") && !result.includes("command not found");
+          
+          if (serverSuccess) {
+            const currentStep = tutorialSteps[currentStepIndex];
+            const cleanCmd = command.toLowerCase();
+            let matched = false;
+
+            if (currentStep.step === 1 && cleanCmd === "scan") matched = true;
+            if (currentStep.step === 2 && cleanCmd.includes("curl")) matched = true;
+            if (currentStep.step === 3 && (cleanCmd.includes("sqli") || cleanCmd.includes("1"))) matched = true;
+            if (currentStep.step === 4 && cleanCmd.includes("dump")) matched = true;
+
+            if (matched) {
+              currentStepIndex++;
+              renderStep(currentStepIndex);
+            }
+          }
+        }
       }
     });
   }
@@ -188,20 +240,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // 4. GOOGLE TRANSLATE WIDGET INITIALIZATION
 // ==========================================
 window.googleTranslateElementInit = function() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    includedLanguages: 'en,ar,es,fr,de,zh-CN',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay: false
-  }, 'google_translate_element');
-
-  setTimeout(function() {
-    const gadgetBtn = document.querySelector('.goog-te-gadget-simple');
-    if (gadgetBtn && !document.querySelector('.cyber-globe-icon')) {
-      const globeIcon = document.createElement('span');
-      globeIcon.className = 'cyber-globe-icon';
-      globeIcon.innerHTML = '🌐';
-      gadgetBtn.prepend(globeIcon);
+  try {
+    if (typeof google !== 'undefined' && google.translate) {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,ar,es,fr,de,zh-CN',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
     }
-  }, 1000);
+  } catch (e) {
+    console.log("Google Translate init deferred:", e);
+  }
 };
