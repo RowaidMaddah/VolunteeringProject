@@ -114,6 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevBtn = document.getElementById('prev-step-btn');
   const nextBtn = document.getElementById('next-step-btn');
 
+  const guidedInstructions = document.getElementById('guided-instructions');
+  const sandboxInstructions = document.getElementById('sandbox-instructions');
+
   // Mode Switcher Controls
   if (btnTutorial && btnSandbox) {
     btnTutorial.addEventListener('click', () => {
@@ -121,6 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
       btnTutorial.classList.add('active');
       btnSandbox.classList.remove('active');
       if (tutorialPopup) tutorialPopup.style.display = 'block';
+      if (guidedInstructions) guidedInstructions.style.display = 'block';
+      if (sandboxInstructions) sandboxInstructions.style.display = 'none';
       renderStep(currentStepIndex);
     });
 
@@ -129,6 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
       btnSandbox.classList.add('active');
       btnTutorial.classList.remove('active');
       if (tutorialPopup) tutorialPopup.style.display = 'none';
+      if (guidedInstructions) guidedInstructions.style.display = 'none';
+      if (sandboxInstructions) sandboxInstructions.style.display = 'block';
     });
   }
 
@@ -193,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
-        // 5. Validate Step Completion ONLY IF server responded successfully
+        // 5. Validate Step Completion ONLY IF in Guided Lab mode and server succeeded
         if (isTutorialMode && currentStepIndex < tutorialSteps.length) {
           const serverSuccess = !result.startsWith("Error:") && !result.includes("command not found");
           
