@@ -186,7 +186,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 3. Handle client-side 'clear'
         if (command.toLowerCase() === 'clear') {
-          terminalOutput.innerHTML = '';
+          terminalOutput.innerHTML = `
+            <p>Welcome to Dera 360 Cyber Sandbox [v1.0.0]</p>
+            <p>Type 'help' to display available commands.</p>
+          `;
           return;
         }
 
