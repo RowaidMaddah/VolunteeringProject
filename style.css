@@ -724,3 +724,7 @@ html.translated-rtl header {
   box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
 }
 
+/* Sandbox vs Guided Content Toggles */
+#sandbox-instructions, #guided-instructions {
+  transition: opacity 0.2s ease;
+}
