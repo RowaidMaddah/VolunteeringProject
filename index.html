@@ -73,10 +73,10 @@
             <div class="instructions-card">
               <h3>📋 Module 01: Lab Tasks</h3>
               <ol>
-                <li>Double-click <strong>Terminal</strong> to open shell.</li>
-                <li>Follow popup instructions for guided path.</li>
-                <li>Type <code>help</code> to see available tools.</li>
-                <li>Type <code>clear</code> to reset terminal output.</li>
+                <li id="task-1">Type <code>scan</code> to discover network services.</li>
+                <li id="task-2">Type <code>curl http://target:8080</code> to inspect port.</li>
+                <li id="task-3">Type <code>sqli ' or '1'='1</code> to bypass auth.</li>
+                <li id="task-4">Type <code>dump users</code> to exfiltrate database data.</li>
               </ol>
             </div>
 
@@ -95,15 +95,22 @@
           <div class="window-container">
             <!-- Standalone Floating Tutorial Step Popup -->
             <div id="tutorial-popup" class="tutorial-card">
-              <div class="tutorial-header">
-                <span id="step-badge">Step 1 of 4</span>
-                <button id="close-popup">&times;</button>
-              </div>
-              <h4 id="step-title">Discover Network Targets</h4>
-              <p id="step-desc">Type <code>scan</code> in the terminal to identify vulnerable services.</p>
-              <div class="tutorial-footer">
-                <span id="step-hint">💡 Hint: Commands are lower-case.</span>
-              </div>
+            <div class="tutorial-header">
+            <div class="tutorial-nav-controls">
+              <button id="prev-step-btn" title="Previous Step">◀</button>
+              <span id="step-badge">Step 1 of 4</span>
+              <button id="next-step-btn" title="Next Step">▶</button>
+            </div>
+            <button id="close-popup">&times;</button>
+          </div>
+
+              
+  <h4 id="step-title">Discover Network Targets</h4>
+  <p id="step-desc">Type <code>scan</code> in the terminal to identify vulnerable services.</p>
+  <div class="tutorial-footer">
+    <span id="step-hint">💡 Hint: Commands are lower-case.</span>
+  </div>
+</div>
             </div>
 
             <!-- Terminal Desktop Window with notranslate preserved -->
