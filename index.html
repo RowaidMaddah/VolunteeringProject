@@ -64,6 +64,10 @@
 
         <div class="desktop-workspace">
           <aside class="desktop-sidebar">
+            <div class="mode-switch-container">
+              <button id="btn-tutorial-mode" class="mode-btn active">📖 Guided Tutorial</button>
+              <button id="btn-sandbox-mode" class="mode-btn">⚡ Free Sandbox</button>
+            </div>
             <div class="instructions-card">
               <h3>📋 Module 01: Lab Tasks</h3>
               <ol>
@@ -88,6 +92,11 @@
           </aside>
 
           <div class="window-container">
+            <div id="tutorial-popup" class="tutorial-card">
+            <div class="tutorial-header">
+              <span id="step-badge">Step 1 of 4</span>
+              <button id="close-popup">&times;</button>
+            </div>
             <div class="desktop-window" id="terminal-window">
               <div class="window-header">
                 <div class="window-controls">
