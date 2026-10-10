@@ -67,17 +67,36 @@
             <!-- Mode Selector Switch -->
             <div class="mode-switch-container">
               <button id="btn-tutorial-mode" class="mode-btn active">📖 Guided Lab</button>
-              <button id="btn-sandbox-mode" class="mode-btn">⚡ Free Sandbox</button>
+              <button id="btn-sandbox-mode" class="mode-btn">🗺️ Free Sandbox</button>
             </div>
 
+
             <div class="instructions-card">
-              <h3>📋 Module 01: Lab Tasks</h3>
-              <ol>
-                <li id="task-1">Type <code>scan</code> to discover network services.</li>
-                <li id="task-2">Type <code>curl http://target:8080</code> to inspect port.</li>
-                <li id="task-3">Type <code>sqli ' or '1'='1</code> to bypass auth.</li>
-                <li id="task-4">Type <code>dump users</code> to exfiltrate database data.</li>
-              </ol>
+  <!-- Guided Lab Tasks (Shown in Tutorial Mode) -->
+              <div id="guided-instructions">
+                <h3>📋 Module 01: Lab Tasks</h3>
+                <ol>
+                  <li id="task-1">Type <code>scan</code> to discover network services.</li>
+                  <li id="task-2">Type <code>curl http://target:8080</code> to inspect port.</li>
+                  <li id="task-3">Type <code>sqli ' or '1'='1</code> to bypass auth.</li>
+                  <li id="task-4">Type <code>dump users</code> to exfiltrate database data.</li>
+                </ol>
+              </div>
+
+  <!-- Free Sandbox Reference Guide (Shown in Sandbox Mode) -->
+              <div id="sandbox-instructions" style="display: none;">
+                <h3>⚡ Sandbox Quick Reference</h3>
+                <p style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">Explore freely! Available commands:</p>
+                <ul style="padding-left: 16px; font-size: 11px; color: #cbd5e1;">
+                  <li><code>help</code> - Show command dictionary</li>
+                  <li><code>scan</code> - Network reconnaissance</li>
+                  <li><code>curl [url]</code> - Probe web targets</li>
+                  <li><code>sqli [payload]</code> - Test database injection</li>
+                  <li><code>dump users</code> - View database records</li>
+                  <li><code>whoami</code> - Check current session user</li>
+                  <li><code>clear</code> - Clear terminal history</li>
+                </ul>
+              </div>
             </div>
 
             <div class="desktop-icons">
