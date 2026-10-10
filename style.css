@@ -597,3 +597,85 @@ html.translated-rtl header {
   background-color: transparent !important;
   box-shadow: none !important;
 }
+
+/* Mode Selector Buttons */
+.mode-switch-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.mode-btn {
+  flex: 1;
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-btn.active, .mode-btn:hover {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border-color: #38bdf8;
+}
+
+/* Floating Tutorial Step Card */
+.tutorial-card {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 50;
+  width: 280px;
+  background: #0f172a;
+  border: 1px solid #38bdf8;
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.tutorial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+#step-badge {
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+#close-popup {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#step-title {
+  color: #38bdf8;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+#step-desc {
+  font-size: 11px;
+  color: #cbd5e1;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.tutorial-footer {
+  font-size: 10px;
+  color: #4ade80;
+}
