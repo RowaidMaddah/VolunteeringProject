@@ -3,7 +3,7 @@
 // ==========================================
 async function sendCommand(userInput) {
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/terminal', {
+    const response = await fetch('https://ideal-space-succotash-r466w4g9x479f5vv6-8000.app.github.dev', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
