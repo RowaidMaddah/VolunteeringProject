@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================
-// 3. GOOGLE TRANSLATE WIDGET & RTL HANDLER
+// 3. GOOGLE TRANSLATE WIDGET INITIALIZATION
 // ==========================================
 window.googleTranslateElementInit = function() {
   new google.translate.TranslateElement({
@@ -109,22 +109,3 @@ window.googleTranslateElementInit = function() {
     }
   }, 1000);
 };
-
-// Monitor Google Translate cookie/DOM changes to enforce Arabic RTL
-const rtlObserver = new MutationObserver(() => {
-  const htmlEl = document.documentElement;
-  const isArabic = htmlEl.classList.contains('translated-rtl') || 
-                   document.body.getAttribute('dir') === 'rtl' || 
-                   document.cookie.includes('googtrans=/en/ar');
-
-  if (isArabic) {
-    htmlEl.classList.add('translated-rtl');
-  } else {
-    htmlEl.classList.remove('translated-rtl');
-  }
-});
-
-rtlObserver.observe(document.documentElement, {
-  attributes: true,
-  attributeFilter: ['class', 'dir']
-});
