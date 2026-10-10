@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear input field immediately
         terminalInput.value = '';
 
+        // Auto-scroll after user command append
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
         // Handle client-side 'clear' command locally
         if (command.toLowerCase() === 'clear') {
           terminalOutput.innerHTML = '';
@@ -79,12 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (terminalIcon && terminalWindow) {
     terminalIcon.addEventListener('dblclick', () => {
       terminalWindow.style.display = 'flex';
+      if (terminalInput) terminalInput.focus();
     });
   }
 });
 
 // ==========================================
-// 3. GOOGLE TRANSLATE WIDGET INITIALIZATION
+// 3. GOOGLE TRANSLATE WIDGET & RTL HANDLER
 // ==========================================
 window.googleTranslateElementInit = function() {
   new google.translate.TranslateElement({
@@ -105,3 +109,22 @@ window.googleTranslateElementInit = function() {
     }
   }, 1000);
 };
+
+// Monitor Google Translate cookie/DOM changes to enforce Arabic RTL
+const rtlObserver = new MutationObserver(() => {
+  const htmlEl = document.documentElement;
+  const isArabic = htmlEl.classList.contains('translated-rtl') || 
+                   document.body.getAttribute('dir') === 'rtl' || 
+                   document.cookie.includes('googtrans=/en/ar');
+
+  if (isArabic) {
+    htmlEl.classList.add('translated-rtl');
+  } else {
+    htmlEl.classList.remove('translated-rtl');
+  }
+});
+
+rtlObserver.observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ['class', 'dir']
+});
