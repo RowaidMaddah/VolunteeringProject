@@ -679,3 +679,48 @@ html.translated-rtl header {
   font-size: 10px;
   color: #4ade80;
 }
+
+/* Tutorial Popup Navigation Arrows */
+.tutorial-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tutorial-nav-controls button {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #38bdf8;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.tutorial-nav-controls button:hover:not(:disabled) {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+.tutorial-nav-controls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Active Sidebar Task Highlight */
+.instructions-card ol li {
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  margin-bottom: 4px;
+  border: 1px solid transparent;
+}
+
+.instructions-card ol li.active-task {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+}
+
