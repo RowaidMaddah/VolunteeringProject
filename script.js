@@ -35,9 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const command = terminalInput.value.trim();
         if (!command) return;
 
-        // Display user input in terminal output
+        // Construct user command line safely
         const userCmdLine = document.createElement('p');
-        userCmdLine.innerHTML = `<span class="prompt">guest@dera360:~$</span> ${command}`;
+        const promptSpan = document.createElement('span');
+        promptSpan.className = 'prompt';
+        promptSpan.textContent = 'guest@dera360:~$ ';
+        userCmdLine.appendChild(promptSpan);
+        userCmdLine.appendChild(document.createTextNode(command));
         terminalOutput.appendChild(userCmdLine);
 
         // Clear input field immediately
@@ -58,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         responseLine.textContent = result;
         terminalOutput.appendChild(responseLine);
 
-        // Auto-scroll terminal to bottom
+        // Auto-scroll terminal output container to latest command
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
       }
     });
@@ -86,7 +90,8 @@ window.googleTranslateElementInit = function() {
   new google.translate.TranslateElement({
     pageLanguage: 'en',
     includedLanguages: 'en,ar,es,fr,de,zh-CN',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
   }, 'google_translate_element');
 
   // Insert custom Globe Icon inside widget button
