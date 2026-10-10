@@ -109,3 +109,61 @@ window.googleTranslateElementInit = function() {
     }
   }, 1000);
 };
+
+// Step Definitions for Guided Tutorial Mode
+const tutorialSteps = [
+  {
+    step: 1,
+    title: "Step 1: Network Reconnaissance",
+    desc: "Type <code>scan</code> in the terminal to probe active local ports.",
+    expectedCmd: "scan",
+    hint: "Type 'scan' and hit Enter."
+  },
+  {
+    step: 2,
+    title: "Step 2: Probing Target Service",
+    desc: "Target found on port 8080! Inspect target headers using <code>curl http://target:8080</code>.",
+    expectedCmd: "curl http://target:8080",
+    hint: "Copy or type: curl http://target:8080"
+  },
+  {
+    step: 3,
+    title: "Step 3: Execute SQL Injection",
+    desc: "Bypass authentication using the SQL logic payload: <code>sqli ' OR '1'='1</code>.",
+    expectedCmd: "sqli ' OR '1'='1",
+    hint: "Type: sqli ' OR '1'='1"
+  },
+  {
+    step: 4,
+    title: "Step 4: Exfiltrate Database",
+    desc: "Authentication bypassed! Run <code>dump users</code> to extract database contents.",
+    expectedCmd: "dump users",
+    hint: "Type: dump users"
+  }
+];
+
+let currentStepIndex = 0;
+let isTutorialMode = true;
+
+// Validate Terminal Input against active tutorial step
+function checkTutorialProgress(userCommand) {
+  if (!isTutorialMode) return;
+
+  const currentStep = tutorialSteps[currentStepIndex];
+  if (userCommand.trim().toLowerCase() === currentStep.expectedCmd.toLowerCase()) {
+    currentStepIndex++;
+    if (currentStepIndex < tutorialSteps.length) {
+      renderTutorialStep(currentStepIndex);
+    } else {
+      showCompletionCard();
+    }
+  }
+}
+
+function renderTutorialStep(index) {
+  const stepData = tutorialSteps[index];
+  document.getElementById('step-badge').textContent = `Step ${stepData.step} of ${tutorialSteps.length}`;
+  document.getElementById('step-title').textContent = stepData.title;
+  document.getElementById('step-desc').innerHTML = stepData.desc;
+  document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
+}
