@@ -3,7 +3,7 @@
 // ==========================================
 async function sendCommand(userInput) {
   try {
-    const response = await fetch('https://ideal-space-succotash-r466w4g9x479f5vv6-8000.app.github.dev', {
+    const response = await fetch('https://ideal-space-succotash-r466w4g9x479f5vv6-8000.app.github.dev/api/terminal', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -199,4 +199,9 @@ window.googleTranslateElementInit = function() {
     const gadgetBtn = document.querySelector('.goog-te-gadget-simple');
     if (gadgetBtn && !document.querySelector('.cyber-globe-icon')) {
       const globeIcon = document.createElement('span');
-      globeIcon.className = 'cyber
+      globeIcon.className = 'cyber-globe-icon';
+      globeIcon.innerHTML = '🌐';
+      gadgetBtn.prepend(globeIcon);
+    }
+  }, 1000);
+};
