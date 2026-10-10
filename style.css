@@ -269,7 +269,7 @@ article p:last-child {
 
 .desktop-window {
   width: 100%;
-  height: 440px; /* Fixed window height inside workspace */
+  height: 440px;
   background-color: #090d16;
   border: 1px solid rgba(56, 189, 248, 0.3);
   border-radius: 8px;
@@ -311,7 +311,6 @@ article p:last-child {
   font-family: monospace;
 }
 
-/* Main terminal pane containing output & input bar */
 .terminal-pane {
   padding: 14px;
   font-family: 'Courier New', Courier, monospace;
@@ -325,10 +324,10 @@ article p:last-child {
   height: calc(100% - 37px);
 }
 
-/* Dedicated scrollable output container */
 #terminal-output {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto !important;
+  max-height: 340px;
   padding-right: 6px;
   display: flex;
   flex-direction: column;
@@ -360,7 +359,6 @@ article p:last-child {
   color: #38bdf8;
 }
 
-/* Command input line pinned at bottom */
 .command-line {
   display: flex !important;
   align-items: center !important;
@@ -386,6 +384,8 @@ article p:last-child {
   flex: 1 !important;
   width: 100% !important;
   box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 /* Resources Section Cards */
@@ -500,7 +500,6 @@ footer {
   margin-left: 15px;
 }
 
-/* Dark Container Overrides */
 .goog-te-gadget-simple {
   background-color: #0f172a !important;
   border: 1px solid #38bdf8 !important;
@@ -520,7 +519,6 @@ footer {
   border-color: #00f0ff !important;
 }
 
-/* Text and inner span styling */
 .goog-te-gadget-simple span,
 .goog-te-gadget-simple a,
 .goog-te-menu-value span {
@@ -529,7 +527,6 @@ footer {
   text-decoration: none !important;
 }
 
-/* Hide default Google logo icon inside widget */
 .goog-te-gadget-icon,
 .goog-te-gadget-simple img {
   display: none !important;
@@ -541,7 +538,6 @@ footer {
   justify-content: center;
 }
 
-/* Hide top attribution frame */
 html, body {
   top: 0px !important;
   position: static !important;
@@ -559,22 +555,4 @@ iframe.goog-te-banner-frame {
 }
 
 /* --- ARABIC RIGHT-TO-LEFT (RTL) DIRECTION FIX --- */
-html.translated-rtl,
-html.translated-rtl body,
-body[dir="rtl"],
-html[lang="ar"] body {
-  direction: rtl !important;
-  text-align: right !important;
-}
-
-html.translated-rtl .language-selector,
-body[dir="rtl"] .language-selector {
-  margin-left: 0;
-  margin-right: 15px;
-}
-
-html.translated-rtl .command-line,
-body[dir="rtl"] .command-line {
-  direction: ltr !important; /* Keep terminal prompt left-to-right */
-  text-align: left !important;
-}
+html
