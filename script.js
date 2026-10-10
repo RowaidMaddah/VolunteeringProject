@@ -19,7 +19,73 @@ async function sendCommand(userInput) {
 }
 
 // ==========================================
-// 2. TERMINAL DOM INTERACTION & EVENT LISTENERS
+// 2. GUIDED TUTORIAL STATE MACHINE
+// ==========================================
+const tutorialSteps = [
+  {
+    step: 1,
+    title: "1. Network Reconnaissance",
+    desc: "Type <code>scan</code> to discover active network services on the target machine.",
+    expectedCmd: "scan",
+    hint: "Commands are lowercase. Type: scan"
+  },
+  {
+    step: 2,
+    title: "2. Probe Target Portal",
+    desc: "Port 8080 is open! Inspect the target server headers using <code>curl http://target:8080</code>.",
+    expectedCmd: "curl http://target:8080",
+    hint: "Type: curl http://target:8080"
+  },
+  {
+    step: 3,
+    title: "3. Perform SQL Injection",
+    desc: "Test authentication bypass using the payload: <code>sqli ' or '1'='1</code>.",
+    expectedCmd: "sqli ' or '1'='1",
+    hint: "Type: sqli ' or '1'='1"
+  },
+  {
+    step: 4,
+    title: "4. Exfiltrate Database",
+    desc: "Authentication bypassed! Run <code>dump users</code> to extract credentials.",
+    expectedCmd: "dump users",
+    hint: "Type: dump users"
+  }
+];
+
+let currentStepIndex = 0;
+let isTutorialMode = true;
+
+function renderStep(index) {
+  const popup = document.getElementById('tutorial-popup');
+  if (!popup) return;
+
+  if (index >= tutorialSteps.length) {
+    document.getElementById('step-badge').textContent = "Complete!";
+    document.getElementById('step-title').textContent = "🎉 Lab Completed!";
+    document.getElementById('step-desc').innerHTML = "You successfully exploited the target system and exfiltrated sensitive data.";
+    document.getElementById('step-hint').textContent = "Switch to Free Sandbox mode anytime!";
+    return;
+  }
+
+  const stepData = tutorialSteps[index];
+  document.getElementById('step-badge').textContent = `Step ${stepData.step} of ${tutorialSteps.length}`;
+  document.getElementById('step-title').textContent = stepData.title;
+  document.getElementById('step-desc').innerHTML = stepData.desc;
+  document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
+}
+
+function checkTutorialProgress(userCommand) {
+  if (!isTutorialMode || currentStepIndex >= tutorialSteps.length) return;
+
+  const currentStep = tutorialSteps[currentStepIndex];
+  if (userCommand.trim().toLowerCase() === currentStep.expectedCmd.toLowerCase()) {
+    currentStepIndex++;
+    renderStep(currentStepIndex);
+  }
+}
+
+// ==========================================
+// 3. DOM INTERACTION & EVENT LISTENERS
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   const terminalInput = document.getElementById('terminal-input');
@@ -27,6 +93,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = document.getElementById('close-terminal-btn');
   const terminalWindow = document.getElementById('terminal-window');
   const terminalIcon = document.getElementById('terminal-icon-btn');
+  
+  const btnTutorial = document.getElementById('btn-tutorial-mode');
+  const btnSandbox = document.getElementById('btn-sandbox-mode');
+  const tutorialPopup = document.getElementById('tutorial-popup');
+  const closePopupBtn = document.getElementById('close-popup');
+
+  // Mode Switcher Controls
+  if (btnTutorial && btnSandbox) {
+    btnTutorial.addEventListener('click', () => {
+      isTutorialMode = true;
+      btnTutorial.classList.add('active');
+      btnSandbox.classList.remove('active');
+      if (tutorialPopup) tutorialPopup.style.display = 'block';
+      renderStep(currentStepIndex);
+    });
+
+    btnSandbox.addEventListener('click', () => {
+      isTutorialMode = false;
+      btnSandbox.classList.add('active');
+      btnTutorial.classList.remove('active');
+      if (tutorialPopup) tutorialPopup.style.display = 'none';
+    });
+  }
+
+  if (closePopupBtn && tutorialPopup) {
+    closePopupBtn.addEventListener('click', () => {
+      tutorialPopup.style.display = 'none';
+    });
+  }
 
   // Handle Command Submission (Enter Key)
   if (terminalInput) {
@@ -35,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const command = terminalInput.value.trim();
         if (!command) return;
 
-        // Construct user command line safely
+        // 1. Render user line in terminal
         const userCmdLine = document.createElement('p');
         const promptSpan = document.createElement('span');
         promptSpan.className = 'prompt';
@@ -44,28 +139,27 @@ document.addEventListener('DOMContentLoaded', () => {
         userCmdLine.appendChild(document.createTextNode(command));
         terminalOutput.appendChild(userCmdLine);
 
-        // Clear input field immediately
+        // 2. Clear input & scroll
         terminalInput.value = '';
-
-        // Auto-scroll after user command append
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
-        // Handle client-side 'clear' command locally
+        // 3. Check & update tutorial step state
+        checkTutorialProgress(command);
+
+        // 4. Handle client-side 'clear'
         if (command.toLowerCase() === 'clear') {
           terminalOutput.innerHTML = '';
           return;
         }
 
-        // Send command to Python FastAPI backend
+        // 5. Send command to FastAPI backend & print response
         const result = await sendCommand(command);
 
-        // Display Python backend response
         const responseLine = document.createElement('p');
         responseLine.className = 'res';
         responseLine.textContent = result;
         terminalOutput.appendChild(responseLine);
 
-        // Auto-scroll terminal output container to latest command
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
       }
     });
@@ -78,17 +172,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Re-open Terminal Window (Double Click Desktop Icon)
+  // Re-open Terminal Window
   if (terminalIcon && terminalWindow) {
     terminalIcon.addEventListener('dblclick', () => {
       terminalWindow.style.display = 'flex';
       if (terminalInput) terminalInput.focus();
     });
   }
+
+  // Initial Step Render
+  renderStep(0);
 });
 
 // ==========================================
-// 3. GOOGLE TRANSLATE WIDGET INITIALIZATION
+// 4. GOOGLE TRANSLATE WIDGET INITIALIZATION
 // ==========================================
 window.googleTranslateElementInit = function() {
   new google.translate.TranslateElement({
@@ -98,72 +195,8 @@ window.googleTranslateElementInit = function() {
     autoDisplay: false
   }, 'google_translate_element');
 
-  // Insert custom Globe Icon inside widget button
   setTimeout(function() {
     const gadgetBtn = document.querySelector('.goog-te-gadget-simple');
     if (gadgetBtn && !document.querySelector('.cyber-globe-icon')) {
       const globeIcon = document.createElement('span');
-      globeIcon.className = 'cyber-globe-icon';
-      globeIcon.innerHTML = '🌐';
-      gadgetBtn.prepend(globeIcon);
-    }
-  }, 1000);
-};
-
-// Step Definitions for Guided Tutorial Mode
-const tutorialSteps = [
-  {
-    step: 1,
-    title: "Step 1: Network Reconnaissance",
-    desc: "Type <code>scan</code> in the terminal to probe active local ports.",
-    expectedCmd: "scan",
-    hint: "Type 'scan' and hit Enter."
-  },
-  {
-    step: 2,
-    title: "Step 2: Probing Target Service",
-    desc: "Target found on port 8080! Inspect target headers using <code>curl http://target:8080</code>.",
-    expectedCmd: "curl http://target:8080",
-    hint: "Copy or type: curl http://target:8080"
-  },
-  {
-    step: 3,
-    title: "Step 3: Execute SQL Injection",
-    desc: "Bypass authentication using the SQL logic payload: <code>sqli ' OR '1'='1</code>.",
-    expectedCmd: "sqli ' OR '1'='1",
-    hint: "Type: sqli ' OR '1'='1"
-  },
-  {
-    step: 4,
-    title: "Step 4: Exfiltrate Database",
-    desc: "Authentication bypassed! Run <code>dump users</code> to extract database contents.",
-    expectedCmd: "dump users",
-    hint: "Type: dump users"
-  }
-];
-
-let currentStepIndex = 0;
-let isTutorialMode = true;
-
-// Validate Terminal Input against active tutorial step
-function checkTutorialProgress(userCommand) {
-  if (!isTutorialMode) return;
-
-  const currentStep = tutorialSteps[currentStepIndex];
-  if (userCommand.trim().toLowerCase() === currentStep.expectedCmd.toLowerCase()) {
-    currentStepIndex++;
-    if (currentStepIndex < tutorialSteps.length) {
-      renderTutorialStep(currentStepIndex);
-    } else {
-      showCompletionCard();
-    }
-  }
-}
-
-function renderTutorialStep(index) {
-  const stepData = tutorialSteps[index];
-  document.getElementById('step-badge').textContent = `Step ${stepData.step} of ${tutorialSteps.length}`;
-  document.getElementById('step-title').textContent = stepData.title;
-  document.getElementById('step-desc').innerHTML = stepData.desc;
-  document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
-}
+      globeIcon.className = 'cyber
