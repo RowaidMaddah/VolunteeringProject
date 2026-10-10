@@ -6,7 +6,7 @@
   <title>Dera Three Sixty Cybersecurity | Awareness & Sandbox</title>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=1.2">
+  <link rel="stylesheet" href="style.css?v=1.3">
 </head>
 <body>
 
@@ -47,7 +47,7 @@
 
     <section id="sandbox">
       <h2>Try It For Yourself</h2>
-      <p>Double-click the <strong>Terminal</strong> icon on the virtual desktop to launch the interactive command shell.</p>
+      <p>Select your mode and launch the interactive command shell from the virtual desktop.</p>
 
       <div class="desktop-simulator">
         <div class="desktop-taskbar">
@@ -64,18 +64,19 @@
 
         <div class="desktop-workspace">
           <aside class="desktop-sidebar">
+            <!-- Mode Selector Switch -->
             <div class="mode-switch-container">
-              <button id="btn-tutorial-mode" class="mode-btn active">📖 Guided Tutorial</button>
+              <button id="btn-tutorial-mode" class="mode-btn active">📖 Guided Lab</button>
               <button id="btn-sandbox-mode" class="mode-btn">⚡ Free Sandbox</button>
             </div>
+
             <div class="instructions-card">
               <h3>📋 Module 01: Lab Tasks</h3>
               <ol>
-                <li>Double-click the <strong>Terminal</strong> icon to launch the shell.</li>
-                <li>Type <code>help</code> to display available commands.</li>
-                <li>Type <code>whoami</code> to inspect your role.</li>
-                <li>Type <code>scan</code> to analyze the local network.</li>
-                <li>Type <code>clear</code> to reset output.</li>
+                <li>Double-click <strong>Terminal</strong> to open shell.</li>
+                <li>Follow popup instructions for guided path.</li>
+                <li>Type <code>help</code> to see available tools.</li>
+                <li>Type <code>clear</code> to reset terminal output.</li>
               </ol>
             </div>
 
@@ -92,12 +93,21 @@
           </aside>
 
           <div class="window-container">
+            <!-- Standalone Floating Tutorial Step Popup -->
             <div id="tutorial-popup" class="tutorial-card">
-            <div class="tutorial-header">
-              <span id="step-badge">Step 1 of 4</span>
-              <button id="close-popup">&times;</button>
+              <div class="tutorial-header">
+                <span id="step-badge">Step 1 of 4</span>
+                <button id="close-popup">&times;</button>
+              </div>
+              <h4 id="step-title">Discover Network Targets</h4>
+              <p id="step-desc">Type <code>scan</code> in the terminal to identify vulnerable services.</p>
+              <div class="tutorial-footer">
+                <span id="step-hint">💡 Hint: Commands are lower-case.</span>
+              </div>
             </div>
-            <div class="desktop-window" id="terminal-window">
+
+            <!-- Terminal Desktop Window with notranslate preserved -->
+            <div class="desktop-window notranslate" id="terminal-window">
               <div class="window-header">
                 <div class="window-controls">
                   <span class="dot red" id="close-terminal-btn"></span>
