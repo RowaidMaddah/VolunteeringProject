@@ -101,6 +101,103 @@ function renderStep(index) {
 // 3. DOM INTERACTION & EVENT LISTENERS
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
+  // ==========================================
+  // FIREFOX BROWSER SIMULATION
+  // ==========================================
+  const firefoxWindow = document.getElementById('firefox-window');
+  const browserIcon = document.getElementById('browser-icon-btn');
+  const closeFirefoxBtn = document.getElementById('close-firefox-btn');
+  const browserUrlInput = document.getElementById('browser-url-input');
+  const browserViewport = document.getElementById('browser-viewport-content');
+  const browserGoBtn = document.getElementById('browser-go-btn');
+
+  // Mock Websites Dictionary
+  const mockWebsites = {
+    "http://target:8080": `
+      <div class="mock-page">
+        <h2>🏦 Apex Trust Bank - Customer Portal</h2>
+        <p>Welcome to our secure online banking login interface. Please sign in to access your accounts.</p>
+        <div style="background: #1e293b; padding: 16px; border-radius: 8px; max-width: 320px; border: 1px solid #334155;">
+          <label style="font-size: 12px; color: #cbd5e1;">Username:</label>
+          <input type="text" value="admin" style="width:1px; width:100%; padding:6px; margin:4px 0 12px 0; background:#0f172a; border:1px solid #334155; color:#fff; border-radius:4px;">
+          <label style="font-size: 12px; color: #cbd5e1;">Password:</label>
+          <input type="password" value="secret123" style="width:100%; padding:6px; margin:4px 0 16px 0; background:#0f172a; border:1px solid #334155; color:#fff; border-radius:4px;">
+          <button style="width:100%; background:#0284c7; color:#fff; border:none; padding:8px; border-radius:4px; font-weight:bold; cursor:pointer;">Secure Login</button>
+        </div>
+        <p style="margin-top: 12px; font-size: 11px; color: #f59e0b;">⚠️ Notice: Backend auth vulnerability detected on endpoint /api/login.</p>
+      </div>
+    `,
+    "http://soc.internal": `
+      <div class="mock-page">
+        <h2>🛡️ SOC Threat Intelligence & Activity Log</h2>
+        <p>Real-time telemetry tracking malicious IPs, brute-force attempts, and perimeter blocks.</p>
+        <table class="mock-table">
+          <tr><th>Timestamp</th><th>Source IP</th><th>Threat Vector</th><th>Action Taken</th></tr>
+          <tr><td>14:22:01</td><td>192.168.45.12</td><td>SQL Injection (Auth Bypass)</td><td><span class="badge-blocked">BLOCKED</span></td></tr>
+          <tr><td>14:20:15</td><td>45.33.22.10</td><td>Port Scan (Nmap SYN)</td><td><span class="badge-blocked">DROPPED</span></td></tr>
+          <tr><td>13:55:09</td><td>10.0.0.15</td><td>Standard User Session</td><td><span class="badge-active">ALLOWED</span></td></tr>
+        </table>
+      </div>
+    `,
+    "http://phish-alert.local": `
+      <div class="mock-page">
+        <h2>⚠️ Corporate IT Alert: Password Expiry Notice</h2>
+        <p style="color: #ef4444; font-weight: bold;">Your enterprise network credentials expire in 2 hours!</p>
+        <p>To prevent account lockout, please verify your corporate credentials immediately.</p>
+        <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; padding: 16px; border-radius: 8px; max-width: 320px;">
+          <label style="font-size: 12px;">Corporate Email:</label>
+          <input type="text" placeholder="user@company.com" style="width:100%; padding:6px; margin:4px 0 12px 0; background:#0f172a; border:1px solid #334155; color:#fff; border-radius:4px;">
+          <label style="font-size: 12px;">Current Password:</label>
+          <input type="password" placeholder="••••••••" style="width:100%; padding:6px; margin:4px 0 16px 0; background:#0f172a; border:1px solid #334155; color:#fff; border-radius:4px;">
+          <button style="width:100%; background:#ef4444; color:#fff; border:none; padding:8px; border-radius:4px; font-weight:bold; cursor:pointer;">Verify Account</button>
+        </div>
+      </div>
+    `
+  };
+
+  function loadPage(url) {
+    const cleanUrl = url.trim().toLowerCase();
+    if (mockWebsites[cleanUrl]) {
+      browserViewport.innerHTML = mockWebsites[cleanUrl];
+    } else {
+      browserViewport.innerHTML = `
+        <div class="mock-page" style="text-align: center; padding-top: 40px;">
+          <h1 style="font-size: 48px; color: #ef4444; margin-bottom: 8px;">404</h1>
+          <h2>Website Not Found</h2>
+          <p>The requested URL <code>${url}</code> could not be reached on this virtual network.</p>
+          <p style="font-size: 12px; color: #64748b;">Try visiting: <code>http://target:8080</code>, <code>http://soc.internal</code>, or <code>http://phish-alert.local</code></p>
+        </div>
+      `;
+    }
+  }
+
+  // Open Firefox on double-click
+  if (browserIcon && firefoxWindow) {
+    browserIcon.addEventListener('dblclick', () => {
+      firefoxWindow.style.display = 'flex';
+      loadPage(browserUrlInput.value);
+    });
+  }
+
+  // Close Firefox window
+  if (closeFirefoxBtn && firefoxWindow) {
+    closeFirefoxBtn.addEventListener('click', () => {
+      firefoxWindow.style.display = 'none';
+    });
+  }
+
+  // Load URL on 'Go' button or Enter key
+  if (browserGoBtn && browserUrlInput) {
+    browserGoBtn.addEventListener('click', () => {
+      loadPage(browserUrlInput.value);
+    });
+
+    browserUrlInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        loadPage(browserUrlInput.value);
+      }
+    });
+  }
   const terminalInput = document.getElementById('terminal-input');
   const terminalOutput = document.getElementById('terminal-output');
   const closeBtn = document.getElementById('close-terminal-btn');
