@@ -729,65 +729,25 @@ html.translated-rtl header {
   transition: opacity 0.2s ease;
 }
 
-/* Firefox Browser Window Styles */
-.browser-nav-bar {
-  background-color: #161b22;
-  padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-bottom: 1px solid #30363d;
-}
-
-.browser-nav-bar button {
-  background: #21262d;
-  border: 1px solid #30363d;
-  color: #c9d1d9;
-  padding: 4px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.browser-nav-bar button:hover {
-  background: #30363d;
-  color: #38bdf8;
-}
-
-#browser-url-input {
-  flex: 1;
-  background: #0d1117;
-  border: 1px solid #30363d;
-  color: #f8fafc;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-family: monospace;
-  font-size: 13px;
-  outline: none;
-}
-
-#browser-url-input:focus {
-  border-color: #38bdf8;
-  box-shadow: 0 0 6px rgba(56, 189, 248, 0.3);
-}
-
+/* Authentic Browser Viewport (Clean White Web Page Style) */
 .browser-viewport {
   flex: 1;
-  background: #0b0f19;
-  padding: 24px;
+  background: #ffffff;
+  padding: 30px;
   overflow-y: auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #f8fafc;
+  color: #1e293b; /* Dark text for readability on white background */
 }
 
-/* Mock Webpage Styling Inside Viewport */
+/* Mock Webpage Styling inside the White Browser */
 .mock-page h2 {
-  color: #38bdf8;
+  color: #0284c7;
   margin-bottom: 12px;
+  font-size: 20px;
 }
 
 .mock-page p {
-  color: #94a3b8;
+  color: #475569;
   margin-bottom: 16px;
   font-size: 14px;
 }
@@ -797,32 +757,41 @@ html.translated-rtl header {
   border-collapse: collapse;
   margin-top: 12px;
   font-size: 13px;
+  background: #ffffff;
 }
 
 .mock-table th, .mock-table td {
-  border: 1px solid #334155;
+  border: 1px solid #cbd5e1;
   padding: 8px 12px;
   text-align: left;
+  color: #1e293b;
 }
 
 .mock-table th {
-  background: #1e293b;
-  color: #38bdf8;
+  background: #f1f5f9;
+  color: #0284c7;
+}
+
+/* Form Inputs inside Mock Pages (Clean light UI) */
+.mock-page input[type="text"],
+.mock-page input[type="password"] {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #1e293b !important;
 }
 
 .badge-blocked {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
   padding: 2px 6px;
   border-radius: 4px;
   font-weight: bold;
 }
 
 .badge-active {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  background: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
   padding: 2px 6px;
   border-radius: 4px;
   font-weight: bold;
 }
-
