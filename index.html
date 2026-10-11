@@ -70,9 +70,8 @@
               <button id="btn-sandbox-mode" class="mode-btn">🗺️ Free Sandbox</button>
             </div>
 
-
             <div class="instructions-card">
-  <!-- Guided Lab Tasks (Shown in Tutorial Mode) -->
+              <!-- Guided Lab Tasks (Shown in Tutorial Mode) -->
               <div id="guided-instructions">
                 <h3>📋 Module 01: Lab Tasks</h3>
                 <ol>
@@ -83,7 +82,7 @@
                 </ol>
               </div>
 
-  <!-- Free Sandbox Reference Guide (Shown in Sandbox Mode) -->
+              <!-- Free Sandbox Reference Guide (Shown in Sandbox Mode) -->
               <div id="sandbox-instructions" style="display: none;">
                 <h3>⚡ Sandbox Quick Reference</h3>
                 <p style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">Explore freely! Available commands:</p>
@@ -124,22 +123,8 @@
                 <span class="window-title">Mozilla Firefox - Dera Browser</span>
               </div>
 
-
-              <!-- Firefox Browser Window -->
-            <div class="desktop-window notranslate" id="firefox-window" style="display: none;">
-              <div class="window-header">
-                <div class="window-controls">
-                  <span class="dot red" id="close-firefox-btn"></span>
-                  <span class="dot yellow"></span>
-                  <span class="dot green"></span>
-                </div>
-                <span class="window-title">Mozilla Firefox - Dera Browser</span>
-              </div>
-
               <!-- Browser Tab Bar -->
-              <div class="browser-tab-bar" id="browser-tab-bar">
-                <!-- Tabs rendered dynamically via JS -->
-              </div>
+              <div class="browser-tab-bar" id="browser-tab-bar"></div>
 
               <!-- Browser Navigation Bar -->
               <div class="browser-nav-bar">
@@ -151,25 +136,9 @@
               </div>
 
               <!-- Browser Viewport -->
-              <div class="browser-viewport" id="browser-viewport-content">
-              </div>
+              <div class="browser-viewport" id="browser-viewport-content"></div>
             </div>
 
-              <!-- Browser Navigation Bar -->
-              <div class="browser-nav-bar">
-                <button id="browser-back-btn">⬅</button>
-                <button id="browser-forward-btn">➡</button>
-                <button id="browser-reload-btn">🔄</button>
-                <input type="text" id="browser-url-input" value="http://target:8080" autocomplete="off">
-                <button id="browser-go-btn">Go</button>
-              </div>
-
-              <!-- Browser Viewport (Where mock sites render) -->
-              <div class="browser-viewport" id="browser-viewport-content">
-                <!-- Dynamically loaded content appears here -->
-              </div>
-            </div>
-            
             <!-- Standalone Floating Tutorial Step Popup -->
             <div id="tutorial-popup" class="tutorial-card">
               <div class="tutorial-header">
@@ -187,7 +156,7 @@
               </div>
             </div>
 
-            <!-- Terminal Desktop Window wrapped properly inside the container -->
+            <!-- Terminal Desktop Window -->
             <div class="desktop-window notranslate" id="terminal-window">
               <div class="window-header">
                 <div class="window-controls">
