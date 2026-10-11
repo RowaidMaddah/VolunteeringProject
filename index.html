@@ -113,6 +113,32 @@
 
           <!-- Right-side workspace container -->
           <div class="window-container">
+            <!-- Firefox Browser Window -->
+            <div class="desktop-window notranslate" id="firefox-window" style="display: none;">
+              <div class="window-header">
+                <div class="window-controls">
+                  <span class="dot red" id="close-firefox-btn"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <span class="window-title">Mozilla Firefox - Dera Browser</span>
+              </div>
+
+              <!-- Browser Navigation Bar -->
+              <div class="browser-nav-bar">
+                <button id="browser-back-btn">⬅</button>
+                <button id="browser-forward-btn">➡</button>
+                <button id="browser-reload-btn">🔄</button>
+                <input type="text" id="browser-url-input" value="http://target:8080" autocomplete="off">
+                <button id="browser-go-btn">Go</button>
+              </div>
+
+              <!-- Browser Viewport (Where mock sites render) -->
+              <div class="browser-viewport" id="browser-viewport-content">
+                <!-- Dynamically loaded content appears here -->
+              </div>
+            </div>
+            
             <!-- Standalone Floating Tutorial Step Popup -->
             <div id="tutorial-popup" class="tutorial-card">
               <div class="tutorial-header">
