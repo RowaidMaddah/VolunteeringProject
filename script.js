@@ -101,12 +101,9 @@ function renderStep(index) {
 // 3. DOM INTERACTION & EVENT LISTENERS
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-  // ==========================================
-  // FIREFOX BROWSER SIMULATION
-  // ==========================================
 
   // ==========================================
-  // FIREFOX BROWSER SIMULATION (FULL HISTORY & NAVIGATION)
+  // FIREFOX BROWSER SIMULATION (MULTI-TAB ENGINE)
   // ==========================================
   const firefoxWindow = document.getElementById('firefox-window');
   const browserIcon = document.getElementById('browser-icon-btn');
@@ -117,10 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const browserBackBtn = document.getElementById('browser-back-btn');
   const browserForwardBtn = document.getElementById('browser-forward-btn');
   const browserReloadBtn = document.getElementById('browser-reload-btn');
-
-  // Browser Navigation History State
-  let historyStack = [];
-  let historyIndex = -1;
+  const browserTabBar = document.getElementById('browser-tab-bar');
 
   // Mock Websites Dictionary
   const mockWebsites = {
@@ -166,9 +160,39 @@ document.addEventListener('DOMContentLoaded', () => {
     `
   };
 
-  function renderPageContent(url) {
-    const cleanUrl = url.trim().toLowerCase();
-    browserUrlInput.value = url;
+  // 3 Default Open Tabs Array
+  let browserTabs = [
+    { id: 1, url: "http://target:8080", title: "Apex Trust Bank", history: ["http://target:8080"], historyIndex: 0 },
+    { id: 2, url: "http://soc.internal", title: "SOC Threat Log", history: ["http://soc.internal"], historyIndex: 0 },
+    { id: 3, url: "http://phish-alert.local", title: "IT Alert Portal", history: ["http://phish-alert.local"], historyIndex: 0 }
+  ];
+  let activeTabId = 1;
+
+  function renderTabs() {
+    if (!browserTabBar) return;
+    browserTabBar.innerHTML = '';
+
+    browserTabs.forEach(tab => {
+      const tabEl = document.createElement('div');
+      tabEl.className = `browser-tab ${tab.id === activeTabId ? 'active-tab' : ''}`;
+      tabEl.innerHTML = `<span>🌐 ${tab.title}</span>`;
+      tabEl.addEventListener('click', () => switchTab(tab.id));
+      browserTabBar.appendChild(tabEl);
+    });
+  }
+
+  function switchTab(tabId) {
+    const tab = browserTabs.find(t => t.id === tabId);
+    if (!tab) return;
+
+    activeTabId = tabId;
+    renderTabs();
+    renderPageContent(tab.title, tab.url);
+  }
+
+  function renderPageContent(titleUrl, actualUrl) {
+    if (browserUrlInput) browserUrlInput.value = actualUrl;
+    const cleanUrl = actualUrl.trim().toLowerCase();
 
     if (mockWebsites[cleanUrl]) {
       browserViewport.innerHTML = mockWebsites[cleanUrl];
@@ -177,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="mock-page" style="text-align: center; padding-top: 40px;">
           <h1 style="font-size: 48px; color: #dc2626; margin-bottom: 8px;">404</h1>
           <h2 style="color: #1e293b;">Website Not Found</h2>
-          <p>The requested URL <code>${url}</code> could not be reached on this virtual network.</p>
+          <p>The requested URL <code>${actualUrl}</code> could not be reached on this virtual network.</p>
           <p style="font-size: 12px; color: #64748b;">Try visiting: <code>http://target:8080</code>, <code>http://soc.internal</code>, or <code>http://phish-alert.local</code></p>
         </div>
       `;
@@ -185,44 +209,60 @@ document.addEventListener('DOMContentLoaded', () => {
     updateNavButtonsState();
   }
 
-  function navigateTo(url, isNewAction = true) {
-    if (isNewAction) {
-      // Cut off forward history if we navigate to a new page from the middle
-      historyStack = historyStack.slice(0, historyIndex + 1);
-      historyStack.push(url);
-      historyIndex = historyStack.length - 1;
-    }
-    renderPageContent(url);
+  function navigateActiveTab(url) {
+    const tab = browserTabs.find(t => t.id === activeTabId);
+    if (!tab) return;
+
+    tab.history = tab.history.slice(0, tab.historyIndex + 1);
+    tab.history.push(url);
+    tab.historyIndex = tab.history.length - 1;
+    tab.url = url;
+
+    if (url.includes("target")) tab.title = "Apex Trust Bank";
+    else if (url.includes("soc")) tab.title = "SOC Threat Log";
+    else if (url.includes("phish")) tab.title = "IT Alert Portal";
+    else tab.title = url.replace("http://", "").substring(0, 15);
+
+    renderTabs();
+    renderPageContent(tab.title, url);
   }
 
   function updateNavButtonsState() {
-    if (browserBackBtn) browserBackBtn.disabled = historyIndex <= 0;
-    if (browserForwardBtn) browserForwardBtn.disabled = historyIndex >= historyStack.length - 1;
+    const tab = browserTabs.find(t => t.id === activeTabId);
+    if (!tab) return;
+    if (browserBackBtn) browserBackBtn.disabled = tab.historyIndex <= 0;
+    if (browserForwardBtn) browserForwardBtn.disabled = tab.historyIndex >= tab.history.length - 1;
   }
 
-  // Event Listeners for Navigation Controls
   if (browserBackBtn) {
     browserBackBtn.addEventListener('click', () => {
-      if (historyIndex > 0) {
-        historyIndex--;
-        navigateTo(historyStack[historyIndex], false);
+      const tab = browserTabs.find(t => t.id === activeTabId);
+      if (tab && tab.historyIndex > 0) {
+        tab.historyIndex--;
+        tab.url = tab.history[tab.historyIndex];
+        renderTabs();
+        renderPageContent(tab.title, tab.url);
       }
     });
   }
 
   if (browserForwardBtn) {
     browserForwardBtn.addEventListener('click', () => {
-      if (historyIndex < historyStack.length - 1) {
-        historyIndex++;
-        navigateTo(historyStack[historyIndex], false);
+      const tab = browserTabs.find(t => t.id === activeTabId);
+      if (tab && tab.historyIndex < tab.history.length - 1) {
+        tab.historyIndex++;
+        tab.url = tab.history[tab.historyIndex];
+        renderTabs();
+        renderPageContent(tab.title, tab.url);
       }
     });
   }
 
   if (browserReloadBtn) {
     browserReloadBtn.addEventListener('click', () => {
-      if (historyStack.length > 0) {
-        navigateTo(historyStack[historyIndex], false);
+      const tab = browserTabs.find(t => t.id === activeTabId);
+      if (tab) {
+        renderPageContent(tab.title, tab.url);
       }
     });
   }
@@ -231,11 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (browserIcon && firefoxWindow) {
     browserIcon.addEventListener('dblclick', () => {
       firefoxWindow.style.display = 'flex';
-      if (historyStack.length === 0) {
-        navigateTo("http://target:8080");
-      } else {
-        navigateTo(historyStack[historyIndex], false);
-      }
+      renderTabs();
+      switchTab(activeTabId);
     });
   }
 
@@ -246,19 +283,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Load URL on 'Go' button or Enter key
   if (browserGoBtn && browserUrlInput) {
     browserGoBtn.addEventListener('click', () => {
-      navigateTo(browserUrlInput.value);
+      navigateActiveTab(browserUrlInput.value);
     });
 
     browserUrlInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        navigateTo(browserUrlInput.value);
+        navigateActiveTab(browserUrlInput.value);
       }
     });
   }
-  
+
+  // ==========================================
+  // TERMINAL & TUTORIAL STATE CONTROLLERS
+  // ==========================================
   const terminalInput = document.getElementById('terminal-input');
   const terminalOutput = document.getElementById('terminal-output');
   const closeBtn = document.getElementById('close-terminal-btn');
@@ -342,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
         terminalInput.value = '';
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
-        // 3. Handle client-side 'clear'
+        // 3. Handle client-side 'clear' (preserving intro lines)
         if (command.toLowerCase() === 'clear') {
           terminalOutput.innerHTML = `
             <p>Welcome to Dera 360 Cyber Sandbox [v1.0.0]</p>
