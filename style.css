@@ -864,5 +864,51 @@ html.translated-rtl header {
   color: #ffffff !important;
 }
 
+/* Browser Tab Bar Styling */
+.browser-tab-bar {
+  background-color: #1f1f23;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px 0 8px;
+  border-bottom: 1px solid #18181b;
+  overflow-x: auto;
+}
+
+.browser-tab {
+  background-color: #27272a;
+  color: #a1a1aa;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 160px;
+  min-width: 110px;
+  justify-content: space-between;
+  border: 1px solid transparent;
+  border-bottom: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.browser-tab:hover {
+  background-color: #3f3f46;
+  color: #f4f4f5;
+}
+
+.browser-tab.active {
+  background-color: #2b2b2f;
+  color: #f4f4f5;
+  border-color: #3f3f46;
+  border-bottom: 1px solid #2b2b2f; /* Blends into nav bar */
+}
+
+.tab-title {
+  overflow: hidden;
+  text-overflow: ellipsis
 
 
