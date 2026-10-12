@@ -106,21 +106,6 @@ function renderStep(index) {
   document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
 }
 
-  if (index >= tutorialSteps.length) {
-    document.getElementById('step-badge').textContent = "Complete!";
-    document.getElementById('step-title').textContent = "🎉 Lab Completed!";
-    document.getElementById('step-desc').innerHTML = "You successfully mapped the target, bypassed authentication on the bank app, and analyzed the defense logs!";
-    document.getElementById('step-hint').textContent = "Switch to Free Sandbox mode anytime!";
-    return;
-  }
-
-  const stepData = tutorialSteps[index];
-  document.getElementById('step-badge').textContent = `Step ${stepData.step} of ${tutorialSteps.length}`;
-  document.getElementById('step-title').textContent = stepData.title;
-  document.getElementById('step-desc').innerHTML = stepData.desc;
-  document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
-}
-
 // ==========================================
 // 3. DOM INTERACTION & EVENT LISTENERS
 // ==========================================
@@ -434,9 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let matched = false;
 
             if (currentStep.step === 1 && cleanCmd === "scan") matched = true;
-            // Step 2 is handled by browser tab click
             if (currentStep.step === 3 && (cleanCmd.includes("sqli") || cleanCmd.includes("1"))) matched = true;
-            // Step 4 is handled by browser tab click
 
             if (matched) {
               currentStepIndex++;
