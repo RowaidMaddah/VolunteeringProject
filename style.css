@@ -945,5 +945,31 @@ html.translated-rtl header {
   background-color: rgba(56, 189, 248, 0.15);
 }
 
+.desktop-empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  color: #64748b;
+  border: 1px dashed rgba(56, 189, 248, 0.15);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.empty-state-content h3 {
+  color: #94a3b8;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.empty-state-content p {
+  font-size: 13px;
+  color: #64748b;
+}
+
+
+
 
 
