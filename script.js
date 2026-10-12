@@ -26,34 +26,37 @@ async function sendCommand(userInput) {
 // ==========================================
 // 2. GUIDED TUTORIAL STATE MACHINE
 // ==========================================
+// ==========================================
+// 2. GUIDED TUTORIAL STATE MACHINE (INTEGRATED WITH BROWSER)
+// ==========================================
 const tutorialSteps = [
   {
     step: 1,
     title: "1. Network Reconnaissance",
-    desc: "Type <code>scan</code> to discover active network services on the target machine.",
+    desc: "Type <code>scan</code> in the terminal to discover active network services on the target machine.",
     expectedCmd: "scan",
     hint: "Type: scan"
   },
   {
     step: 2,
-    title: "2. Probe Target Portal",
-    desc: "Port 8080 is open! Inspect headers using <code>curl http://target:8080</code>.",
-    expectedCmd: "curl http://target:8080",
-    hint: "Type: curl http://target:8080"
+    title: "2. Inspect Bank Portal",
+    desc: "Port 8080 is open! Double-click <b>Mozilla Firefox</b> and switch to the <b>Apex Trust Bank</b> tab to inspect the vulnerable login portal.",
+    expectedCmd: "browser_check", // Accomplished by interacting with browser
+    hint: "Open Firefox and view http://target:8080"
   },
   {
     step: 3,
     title: "3. Perform SQL Injection",
-    desc: "Bypass authentication using: <code>sqli ' or '1'='1</code>.",
+    desc: "Bypass the bank's authentication by running: <code>sqli ' or '1'='1</code> in the terminal.",
     expectedCmd: "sqli ' or '1'='1",
     hint: "Type: sqli ' or '1'='1"
   },
   {
     step: 4,
-    title: "4. Exfiltrate Database",
-    desc: "Authentication bypassed! Run <code>dump users</code> to extract credentials.",
-    expectedCmd: "dump users",
-    hint: "Type: dump users"
+    title: "4. Verify SOC Telemetry",
+    desc: "Attack successful! Switch to the <b>SOC Threat Log</b> tab in Firefox (`http://soc.internal`) to view your recorded telemetry logs.",
+    expectedCmd: "soc_check",
+    hint: "Check the SOC Threat Log tab in Firefox"
   }
 ];
 
@@ -64,7 +67,6 @@ function renderStep(index) {
   const popup = document.getElementById('tutorial-popup');
   if (!popup) return;
 
-  // Update Back/Next Arrow Button States
   const prevBtn = document.getElementById('prev-step-btn');
   const nextBtn = document.getElementById('next-step-btn');
   if (prevBtn) prevBtn.disabled = index === 0;
@@ -81,6 +83,21 @@ function renderStep(index) {
       }
     }
   }
+
+  if (index >= tutorialSteps.length) {
+    document.getElementById('step-badge').textContent = "Complete!";
+    document.getElementById('step-title').textContent = "🎉 Lab Completed!";
+    document.getElementById('step-desc').innerHTML = "You successfully mapped the target, bypassed authentication on the bank app, and analyzed the defense logs!";
+    document.getElementById('step-hint').textContent = "Switch to Free Sandbox mode anytime!";
+    return;
+  }
+
+  const stepData = tutorialSteps[index];
+  document.getElementById('step-badge').textContent = `Step ${stepData.step} of ${tutorialSteps.length}`;
+  document.getElementById('step-title').textContent = stepData.title;
+  document.getElementById('step-desc').innerHTML = stepData.desc;
+  document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
+}
 
   if (index >= tutorialSteps.length) {
     document.getElementById('step-badge').textContent = "Complete!";
