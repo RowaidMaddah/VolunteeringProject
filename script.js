@@ -112,9 +112,27 @@ function renderStep(index) {
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
+  // WALLPAPER BACKGROUND STATE MANAGER
+  // ==========================================
+  const terminalWindow = document.getElementById('terminal-window');
+  const firefoxWindow = document.getElementById('firefox-window');
+  const desktopWallpaper = document.getElementById('desktop-wallpaper');
+
+  function updateWallpaperState() {
+    if (!desktopWallpaper || !terminalWindow || !firefoxWindow) return;
+    const terminalOpen = terminalWindow.style.display !== 'none';
+    const browserOpen = firefoxWindow.style.display !== 'none';
+    
+    // Show wallpaper ONLY when both windows are closed/hidden
+    desktopWallpaper.style.display = (!terminalOpen && !browserOpen) ? 'flex' : 'none';
+  }
+
+  // Run on startup
+  updateWallpaperState();
+
+  // ==========================================
   // FIREFOX BROWSER SIMULATION (MULTI-TAB ENGINE)
   // ==========================================
-  const firefoxWindow = document.getElementById('firefox-window');
   const browserIcon = document.getElementById('browser-icon-btn');
   const closeFirefoxBtn = document.getElementById('close-firefox-btn');
   const browserUrlInput = document.getElementById('browser-url-input');
@@ -291,12 +309,14 @@ document.addEventListener('DOMContentLoaded', () => {
       firefoxWindow.style.display = 'flex';
       renderTabs();
       switchTab(activeTabId);
+      updateWallpaperState();
     });
   }
 
   if (closeFirefoxBtn && firefoxWindow) {
     closeFirefoxBtn.addEventListener('click', () => {
       firefoxWindow.style.display = 'none';
+      updateWallpaperState();
     });
   }
 
@@ -318,7 +338,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const terminalInput = document.getElementById('terminal-input');
   const terminalOutput = document.getElementById('terminal-output');
   const closeBtn = document.getElementById('close-terminal-btn');
-  const terminalWindow = document.getElementById('terminal-window');
   const terminalIcon = document.getElementById('terminal-icon-btn');
   
   const btnTutorial = document.getElementById('btn-tutorial-mode');
@@ -434,6 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (closeBtn && terminalWindow) {
     closeBtn.addEventListener('click', () => {
       terminalWindow.style.display = 'none';
+      updateWallpaperState();
     });
   }
 
@@ -441,6 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
     terminalIcon.addEventListener('dblclick', () => {
       terminalWindow.style.display = 'flex';
       if (terminalInput) terminalInput.focus();
+      updateWallpaperState();
     });
   }
 
