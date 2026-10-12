@@ -922,5 +922,30 @@ html.translated-rtl header {
   resize: none;
 }
 
+/* Pulsing highlight effect for tutorial guidance */
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.8), 0 0 10px rgba(56, 189, 248, 0.5);
+    border-color: #38bdf8;
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(56, 189, 248, 0), 0 0 20px rgba(56, 189, 248, 0.8);
+    border-color: #38bdf8;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0), 0 0 10px rgba(56, 189, 248, 0.5);
+    border-color: #38bdf8;
+  }
+}
+
+.tutorial-highlight {
+  animation: pulse-glow 1.5s infinite;
+  border: 2px solid #38bdf8 !important;
+  border-radius: 8px;
+  background-color: rgba(56, 189, 248, 0.1);
+}
+
+
+
 
 
