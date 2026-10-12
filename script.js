@@ -81,6 +81,31 @@ function renderStep(index) {
     }
   }
 
+  // Highlight or un-highlight the Firefox desktop icon on Step 2
+  const browserIconEl = document.getElementById('browser-icon-btn');
+  if (browserIconEl) {
+    if (index === 1) { // Step 2 (0-indexed)
+      browserIconEl.classList.add('tutorial-highlight');
+    } else {
+      browserIconEl.classList.remove('tutorial-highlight');
+    }
+  }
+
+  if (index >= tutorialSteps.length) {
+    document.getElementById('step-badge').textContent = "Complete!";
+    document.getElementById('step-title').textContent = "🎉 Lab Completed!";
+    document.getElementById('step-desc').innerHTML = "You successfully mapped the target, bypassed authentication on the bank app, and analyzed the defense logs!";
+    document.getElementById('step-hint').textContent = "Switch to Free Sandbox mode anytime!";
+    return;
+  }
+
+  const stepData = tutorialSteps[index];
+  document.getElementById('step-badge').textContent = `Step ${stepData.step} of ${tutorialSteps.length}`;
+  document.getElementById('step-title').textContent = stepData.title;
+  document.getElementById('step-desc').innerHTML = stepData.desc;
+  document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
+}
+
   if (index >= tutorialSteps.length) {
     document.getElementById('step-badge').textContent = "Complete!";
     document.getElementById('step-title').textContent = "🎉 Lab Completed!";
