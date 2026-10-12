@@ -81,13 +81,13 @@ function renderStep(index) {
     }
   }
 
-  // Highlight or un-highlight the Firefox desktop icon on Step 2
-  const browserIconEl = document.getElementById('browser-icon-btn');
-  if (browserIconEl) {
+  // Highlight or un-highlight ONLY the Firefox icon image on Step 2
+  const browserIconImg = document.querySelector('#browser-icon-btn .icon-img');
+  if (browserIconImg) {
     if (index === 1) { // Step 2 (0-indexed)
-      browserIconEl.classList.add('tutorial-highlight');
+      browserIconImg.classList.add('tutorial-highlight');
     } else {
-      browserIconEl.classList.remove('tutorial-highlight');
+      browserIconImg.classList.remove('tutorial-highlight');
     }
   }
 
