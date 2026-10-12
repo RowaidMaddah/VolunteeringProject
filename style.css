@@ -918,3 +918,9 @@ html.translated-rtl header {
   color: #ffffff;
 }
 
+#user-message {
+  resize: none;
+}
+
+
+
