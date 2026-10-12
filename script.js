@@ -24,10 +24,7 @@ async function sendCommand(userInput) {
 }
 
 // ==========================================
-// 2. GUIDED TUTORIAL STATE MACHINE
-// ==========================================
-// ==========================================
-// 2. GUIDED TUTORIAL STATE MACHINE (INTEGRATED WITH BROWSER)
+// 2. GUIDED TUTORIAL STATE MACHINE (INTEGRATED)
 // ==========================================
 const tutorialSteps = [
   {
@@ -40,9 +37,9 @@ const tutorialSteps = [
   {
     step: 2,
     title: "2. Inspect Bank Portal",
-    desc: "Port 8080 is open! Double-click <b>Mozilla Firefox</b> and switch to the <b>Apex Trust Bank</b> tab to inspect the vulnerable login portal.",
-    expectedCmd: "browser_check", // Accomplished by interacting with browser
-    hint: "Open Firefox and view http://target:8080"
+    desc: "Port 8080 is open! Double-click <b>Mozilla Firefox</b> and switch to the <b>Apex Trust Bank</b> tab.",
+    expectedCmd: "browser_check",
+    hint: "Open Firefox and click the Apex Trust Bank tab"
   },
   {
     step: 3,
@@ -54,9 +51,9 @@ const tutorialSteps = [
   {
     step: 4,
     title: "4. Verify SOC Telemetry",
-    desc: "Attack successful! Switch to the <b>SOC Threat Log</b> tab in Firefox (`http://soc.internal`) to view your recorded telemetry logs.",
+    desc: "Attack successful! Switch to the <b>SOC Threat Log</b> tab in Firefox to view your recorded telemetry logs.",
     expectedCmd: "soc_check",
-    hint: "Check the SOC Threat Log tab in Firefox"
+    hint: "Click the SOC Threat Log tab in Firefox"
   }
 ];
 
@@ -88,21 +85,6 @@ function renderStep(index) {
     document.getElementById('step-badge').textContent = "Complete!";
     document.getElementById('step-title').textContent = "🎉 Lab Completed!";
     document.getElementById('step-desc').innerHTML = "You successfully mapped the target, bypassed authentication on the bank app, and analyzed the defense logs!";
-    document.getElementById('step-hint').textContent = "Switch to Free Sandbox mode anytime!";
-    return;
-  }
-
-  const stepData = tutorialSteps[index];
-  document.getElementById('step-badge').textContent = `Step ${stepData.step} of ${tutorialSteps.length}`;
-  document.getElementById('step-title').textContent = stepData.title;
-  document.getElementById('step-desc').innerHTML = stepData.desc;
-  document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
-}
-
-  if (index >= tutorialSteps.length) {
-    document.getElementById('step-badge').textContent = "Complete!";
-    document.getElementById('step-title').textContent = "🎉 Lab Completed!";
-    document.getElementById('step-desc').innerHTML = "You successfully exploited the target system and exfiltrated sensitive data.";
     document.getElementById('step-hint').textContent = "Switch to Free Sandbox mode anytime!";
     return;
   }
@@ -177,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `
   };
 
-  // 3 Default Open Tabs Array
   let browserTabs = [
     { id: 1, url: "http://target:8080", title: "Apex Trust Bank", history: ["http://target:8080"], historyIndex: 0 },
     { id: 2, url: "http://soc.internal", title: "SOC Threat Log", history: ["http://soc.internal"], historyIndex: 0 },
@@ -205,6 +186,18 @@ document.addEventListener('DOMContentLoaded', () => {
     activeTabId = tabId;
     renderTabs();
     renderPageContent(tab.title, tab.url);
+
+    // Auto-advance Step 2 when user clicks the Bank tab
+    if (isTutorialMode && currentStepIndex === 1 && tabId === 1) {
+      currentStepIndex++;
+      renderStep(currentStepIndex);
+    }
+
+    // Auto-advance Step 4 when user clicks the SOC tab
+    if (isTutorialMode && currentStepIndex === 3 && tabId === 2) {
+      currentStepIndex++;
+      renderStep(currentStepIndex);
+    }
   }
 
   function renderPageContent(titleUrl, actualUrl) {
@@ -219,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <h1 style="font-size: 48px; color: #dc2626; margin-bottom: 8px;">404</h1>
           <h2 style="color: #1e293b;">Website Not Found</h2>
           <p>The requested URL <code>${actualUrl}</code> could not be reached on this virtual network.</p>
-          <p style="font-size: 12px; color: #64748b;">Try visiting: <code>http://target:8080</code>, <code>http://soc.internal</code>, or <code>http://phish-alert.local</code></p>
         </div>
       `;
     }
@@ -284,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Open Firefox on double-click
   if (browserIcon && firefoxWindow) {
     browserIcon.addEventListener('dblclick', () => {
       firefoxWindow.style.display = 'flex';
@@ -293,7 +284,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Close Firefox window
   if (closeFirefoxBtn && firefoxWindow) {
     closeFirefoxBtn.addEventListener('click', () => {
       firefoxWindow.style.display = 'none';
@@ -331,7 +321,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const guidedInstructions = document.getElementById('guided-instructions');
   const sandboxInstructions = document.getElementById('sandbox-instructions');
 
-  // Mode Switcher Controls
   if (btnTutorial && btnSandbox) {
     btnTutorial.addEventListener('click', () => {
       isTutorialMode = true;
@@ -359,7 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Manual Arrow Navigation Controls
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
       if (currentStepIndex > 0) {
@@ -378,14 +366,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Handle Command Submission (Enter Key)
   if (terminalInput) {
     terminalInput.addEventListener('keydown', async (event) => {
       if (event.key === 'Enter') {
         const command = terminalInput.value.trim();
         if (!command) return;
 
-        // 1. Render user line in terminal
         const userCmdLine = document.createElement('p');
         const promptSpan = document.createElement('span');
         promptSpan.className = 'prompt';
@@ -394,11 +380,9 @@ document.addEventListener('DOMContentLoaded', () => {
         userCmdLine.appendChild(document.createTextNode(command));
         terminalOutput.appendChild(userCmdLine);
 
-        // 2. Clear input & scroll
         terminalInput.value = '';
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
-        // 3. Handle client-side 'clear' (preserving intro lines)
         if (command.toLowerCase() === 'clear') {
           terminalOutput.innerHTML = `
             <p>Welcome to Dera 360 Cyber Sandbox [v1.0.0]</p>
@@ -407,7 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        // 4. Send command to FastAPI backend
         const result = await sendCommand(command);
 
         const responseLine = document.createElement('p');
@@ -417,7 +400,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
-        // 5. Validate Step Completion ONLY IF in Guided Lab mode and server succeeded
         if (isTutorialMode && currentStepIndex < tutorialSteps.length) {
           const serverSuccess = !result.startsWith("Error:") && !result.includes("command not found");
           
@@ -427,9 +409,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let matched = false;
 
             if (currentStep.step === 1 && cleanCmd === "scan") matched = true;
-            if (currentStep.step === 2 && cleanCmd.includes("curl")) matched = true;
+            // Step 2 is handled by browser tab click
             if (currentStep.step === 3 && (cleanCmd.includes("sqli") || cleanCmd.includes("1"))) matched = true;
-            if (currentStep.step === 4 && cleanCmd.includes("dump")) matched = true;
+            // Step 4 is handled by browser tab click
 
             if (matched) {
               currentStepIndex++;
@@ -441,14 +423,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Close Terminal Window (Red Dot)
   if (closeBtn && terminalWindow) {
     closeBtn.addEventListener('click', () => {
       terminalWindow.style.display = 'none';
     });
   }
 
-  // Re-open Terminal Window
   if (terminalIcon && terminalWindow) {
     terminalIcon.addEventListener('dblclick', () => {
       terminalWindow.style.display = 'flex';
@@ -456,7 +436,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initial Step Render
   renderStep(0);
 });
 
