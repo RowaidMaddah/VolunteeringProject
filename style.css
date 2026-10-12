@@ -969,6 +969,37 @@ html.translated-rtl header {
   color: #64748b;
 }
 
+/* Desktop Wallpaper Background Layer */
+.desktop-wallpaper-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #475569;
+  pointer-events: none; /* Allows clicks to pass through */
+  z-index: 0;           /* Safely behind any active window */
+}
+
+.wallpaper-content h3 {
+  color: #64748b;
+  font-size: 18px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.wallpaper-content p {
+  font-size: 13px;
+  color: #475569;
+}
+
+/* Ensure app windows always float on top of the wallpaper */
+.desktop-window {
+  position: relative;
+  z-index: 10;
+}
+
 
 
 
