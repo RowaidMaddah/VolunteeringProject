@@ -941,11 +941,9 @@ html.translated-rtl header {
 .tutorial-highlight {
   animation: pulse-glow 1.5s infinite;
   border: 2px solid #38bdf8 !important;
-  border-radius: 8px;
-  background-color: rgba(56, 189, 248, 0.1);
+  border-radius: 12px;
+  background-color: rgba(56, 189, 248, 0.15);
 }
-
-
 
 
 
