@@ -470,8 +470,20 @@ footer {
   white-space: nowrap;
 }
 
-#google_translate_element .goog-te-gadget a {
+#google_translate_element .goog-te-gadget a,
+#google_translate_element .goog-te-gadget a:hover {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-shadow: none;
   text-decoration: none;
+  transition: none;
 }
 
 #google_translate_element .goog-te-combo {
@@ -965,5 +977,4 @@ html.translated-rtl header {
   position: relative;
   z-index: 10;
 }
-
 
