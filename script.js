@@ -508,19 +508,9 @@ window.googleTranslateElementInit = function() {
       new google.translate.TranslateElement({
         pageLanguage: 'en',
         includedLanguages: 'en,ar,es,fr,de,zh-CN',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
         autoDisplay: false
       }, 'google_translate_element');
-
-      setTimeout(function() {
-        const gadgetBtn = document.querySelector('.goog-te-gadget-simple');
-        if (gadgetBtn && !document.querySelector('.cyber-globe-icon')) {
-          const globeIcon = document.createElement('span');
-          globeIcon.className = 'cyber-globe-icon';
-          globeIcon.textContent = '🌐 ';
-          gadgetBtn.prepend(globeIcon);
-        }
-      }, 1000);
     }
   } catch (e) {
     console.log("Google Translate init deferred:", e);

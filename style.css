@@ -478,6 +478,21 @@ footer {
   border-color: #00f0ff !important;
 }
 
+.goog-te-gadget .goog-te-combo {
+  background-color: #0f172a;
+  border: 1px solid #38bdf8;
+  border-radius: 6px;
+  color: #38bdf8;
+  cursor: pointer;
+  font: inherit;
+  padding: 5px 10px;
+}
+
+.goog-te-gadget .goog-te-combo:focus-visible {
+  outline: 2px solid #00f0ff;
+  outline-offset: 2px;
+}
+
 .goog-te-gadget-simple span,
 .goog-te-gadget-simple a,
 .goog-te-menu-value span {
@@ -958,7 +973,6 @@ html.translated-rtl header {
   position: relative;
   z-index: 10;
 }
-
 
 
 
