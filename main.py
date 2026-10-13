@@ -37,10 +37,10 @@ async def process_terminal_command(req: CommandRequest):
         return {"output": "[+] Scanning 127.0.0.1...\n[!] Found Port 8080: HTTP (Vulnerable Login Portal)"}
     elif cmd == "curl http://target:8080":
         return {"output": "HTTP/1.1 200 OK\nServer: Dera360-Auth-Service v1.0\nAuth-Type: SQL Database Check"}
-    elif cmd == "sqli":
-        return {"output": "Usage: sqli ' OR '1'='1"}
     elif cmd == "sqli ' or '1'='1":
         return {"output": "[SUCCESS] Query executed: SELECT * FROM users WHERE user='' OR '1'='1';\n[!] Access Granted! Logged in as ADMIN."}
+    elif cmd.startswith("sqli"):
+        return {"output": "Usage: sqli ' OR '1'='1"}
     elif cmd == "dump users":
         return {"output": "[+] EXFILTRATING DATABASE:\nID | USERNAME | ROLE   | HASH\n1  | admin    | Admin  | $2b$12$e8x...\n2  | guest    | User   | $2b$12$a1q..."}
     else:

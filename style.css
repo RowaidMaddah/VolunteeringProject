@@ -713,8 +713,150 @@ html.translated-rtl header {
   background: #ffffff;
   padding: 30px;
   overflow-y: auto;
+  position: relative;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #1e293b; /* Dark text for readability on white background */
+}
+
+.browser-viewport.is-loading {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+}
+
+.browser-load-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.browser-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #bae6fd;
+  border-top-color: #0284c7;
+  border-radius: 50%;
+  animation: browser-spin 0.7s linear infinite;
+}
+
+@keyframes browser-spin {
+  to { transform: rotate(360deg); }
+}
+
+.mock-page {
+  animation: mock-page-enter 0.25s ease-out both;
+}
+
+@keyframes mock-page-enter {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bank-eyebrow {
+  color: #64748b !important;
+  font-size: 10px !important;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px !important;
+}
+
+.bank-login-card,
+.bank-account-card {
+  display: grid;
+  gap: 8px;
+  max-width: 380px;
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+  background: #f8fafc;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.bank-login-card label {
+  color: #334155;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.bank-login-card input {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 9px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #1e293b;
+}
+
+.mock-action-button {
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: #0284c7;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.mock-action-button:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
+}
+
+.bank-login-status {
+  min-height: 18px;
+  margin: 0 !important;
+  color: #15803d !important;
+  font-size: 12px !important;
+}
+
+.bank-login-status.is-error {
+  color: #b91c1c !important;
+}
+
+.bank-training-note {
+  max-width: 520px;
+  margin-top: 18px !important;
+  color: #64748b !important;
+  font-size: 12px !important;
+}
+
+.bank-admin-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bank-account-card {
+  grid-template-columns: 1fr auto;
+  max-width: 520px;
+  margin-bottom: 24px;
+}
+
+.bank-account-card strong {
+  color: #0f172a;
+  text-align: right;
+}
+
+.bank-admin-page h3 {
+  color: #334155;
+  font-size: 15px;
+}
+
+.bank-admin-page .mock-action-button {
+  margin-top: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .browser-spinner,
+  .mock-page {
+    animation: none;
+  }
 }
 
 /* Mock Webpage Styling inside the White Browser */
@@ -977,4 +1119,3 @@ html.translated-rtl header {
   position: relative;
   z-index: 10;
 }
-
