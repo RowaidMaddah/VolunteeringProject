@@ -465,11 +465,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==========================================
+  // 5. CONTACT FORM SUBMISSION HANDLER
+  // ==========================================
+  const contactForm = document.getElementById('contact-form');
+  
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const emailInput = document.getElementById('user-email');
+      const messageInput = document.getElementById('user-message');
+      const submitBtn = document.getElementById('submit-btn');
+
+      const email = emailInput.value.trim();
+      const message = messageInput.value.trim();
+
+      if (!email || !message) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      try {
+        const response = await fetch('https://ideal-space-succotash-r466w4g9x479f5vv6-8000.app.github.dev/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, message })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert('✅ Message sent successfully! Thank you for reaching out.');
+          contactForm.reset();
+        } else {
+          alert(`❌ Error: ${data.detail || 'Could not send message.'}`);
+        }
+      } catch (error) {
+        console.error("Contact form error:", error);
+        alert('❌ Error: Could not connect to the mail server.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      }
+    });
+  }
+
   renderStep(0);
 });
 
 // ==========================================
-// 4. GOOGLE TRANSLATE WIDGET INITIALIZATION
+// 6. GOOGLE TRANSLATE WIDGET INITIALIZATION
 // ==========================================
 window.googleTranslateElementInit = function() {
   try {
