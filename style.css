@@ -423,64 +423,23 @@ article p:last-child {
   color: #cbd5e1;
 }
 
-/* Contact Section & Form */
-#contact-form {
+/* Contact Section */
+.contact-email {
+  display: inline-block;
   background-color: #1e293b;
-  border: 1px solid #334155;
-  padding: 28px;
-  border-radius: 10px;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+  padding: 12px 18px;
+  border-radius: 6px;
   margin-top: 20px;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
 }
 
-#contact-form label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-  color: #e2e8f0;
-}
-
-#contact-form input[type="email"], 
-#contact-form textarea {
-  width: 100%;
-  background: #0f172a;
-  border: 1px solid #334155;
-  padding: 12px;
-  color: #f8fafc;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.2s;
-}
-
-#contact-form input[type="email"]:focus, 
-#contact-form textarea:focus {
-  outline: none;
-  border-color: #38bdf8;
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
-}
-
-.honeypot {
-  display: none !important;
-}
-
-#submit-btn {
-  background: #0284c7;
-  color: white;
-  border: none;
-  padding: 14px;
-  font-weight: bold;
-  font-size: 15px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-#submit-btn:hover {
-  background: #0369a1;
-  box-shadow: 0 0 12px rgba(2, 132, 199, 0.5);
+.contact-email:hover,
+.contact-email:focus-visible {
+  background-color: #0284c7;
+  color: #fff;
 }
 
 /* Footer */

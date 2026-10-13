@@ -1,0 +1,15 @@
+{
+  "name": "VolunteeringProject",
+  "postStartCommand": "bash /workspaces/VolunteeringProject/start_servers.sh",
+  "forwardPorts": [8000, 8080],
+  "portsAttributes": {
+    "8000": {
+      "label": "FastAPI API",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Frontend",
+      "onAutoForward": "notify"
+    }
+  }
+}

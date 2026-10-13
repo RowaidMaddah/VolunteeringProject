@@ -1,9 +1,41 @@
 // ==========================================
 // 1. FASTAPI BACKEND API INTEGRATION
 // ==========================================
+const PUBLIC_API_BASE_URL = ''; // Set to the deployed HTTPS API URL.
+
+function getApiBaseUrl() {
+  const { hostname, origin, protocol } = window.location;
+  if (PUBLIC_API_BASE_URL) {
+    return PUBLIC_API_BASE_URL.replace(/\/+$/, '');
+  }
+
+  const forwardedHost = hostname.replace(
+    /-\d+\.app\.github\.dev$/,
+    '-8000.app.github.dev'
+  );
+
+  if (forwardedHost !== hostname) {
+    return `${protocol}//${forwardedHost}`;
+  }
+
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return `${protocol}//${hostname}:8000`;
+  }
+
+  if (protocol === 'file:') {
+    return 'http://127.0.0.1:8000';
+  }
+
+  if (hostname.endsWith('.github.io')) {
+    throw new Error('The deployed FastAPI URL has not been configured yet.');
+  }
+
+  return origin;
+}
+
 async function sendCommand(userInput) {
   try {
-    const response = await fetch('https://ideal-space-succotash-r466w4g9x479f5vv6-8000.app.github.dev/api/terminal', {
+    const response = await fetch(`${getApiBaseUrl()}/api/terminal`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -12,14 +44,13 @@ async function sendCommand(userInput) {
     });
 
     if (!response.ok) {
-      return `Server Error: HTTP ${response.status}`;
+      throw new Error(`API returned HTTP ${response.status}`);
     }
 
     const data = await response.json();
-    return data.output; 
+    return data.output;
   } catch (error) {
-    console.error("Backend connection error:", error);
-    return 'Error: Cannot connect to FastAPI backend server.';
+    return `Error: Cannot connect to FastAPI backend (${error.message}).`;
   }
 }
 
@@ -465,54 +496,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ==========================================
-  // 5. CONTACT FORM SUBMISSION HANDLER
-  // ==========================================
-  const contactForm = document.getElementById('contact-form');
-  
-  if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const emailInput = document.getElementById('user-email');
-      const messageInput = document.getElementById('user-message');
-      const submitBtn = document.getElementById('submit-btn');
-
-      const email = emailInput.value.trim();
-      const message = messageInput.value.trim();
-
-      if (!email || !message) return;
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
-
-      try {
-        const response = await fetch('https://ideal-space-succotash-r466w4g9x479f5vv6-8000.app.github.dev/api/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, message })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          alert('✅ Message sent successfully! Thank you for reaching out.');
-          contactForm.reset();
-        } else {
-          alert(`❌ Error: ${data.detail || 'Could not send message.'}`);
-        }
-      } catch (error) {
-        console.error("Contact form error:", error);
-        alert('❌ Error: Could not connect to the mail server.');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Message';
-      }
-    });
-  }
-
   renderStep(0);
 });
 
@@ -528,6 +511,16 @@ window.googleTranslateElementInit = function() {
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
       }, 'google_translate_element');
+
+      setTimeout(function() {
+        const gadgetBtn = document.querySelector('.goog-te-gadget-simple');
+        if (gadgetBtn && !document.querySelector('.cyber-globe-icon')) {
+          const globeIcon = document.createElement('span');
+          globeIcon.className = 'cyber-globe-icon';
+          globeIcon.textContent = '🌐 ';
+          gadgetBtn.prepend(globeIcon);
+        }
+      }, 1000);
     }
   } catch (e) {
     console.log("Google Translate init deferred:", e);
