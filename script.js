@@ -1,7 +1,7 @@
 // ==========================================
 // 1. FASTAPI BACKEND API INTEGRATION
 // ==========================================
-const PUBLIC_API_BASE_URL = ''; // Set to the deployed HTTPS API URL.
+const PUBLIC_API_BASE_URL = 'https://volunteeringproject-api.onrender.com';
 
 function getApiBaseUrl() {
   const { hostname, origin, protocol } = window.location;
