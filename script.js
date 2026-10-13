@@ -75,9 +75,9 @@ const tutorialSteps = [
   {
     step: 3,
     title: "3. Perform SQL Injection",
-    desc: "Bypass the bank's authentication by running: <code>sqli ' or '1'='1</code> in the terminal.",
+    desc: "In the terminal, enter this exact command to run the simulated SQL injection: <code>sqli ' OR '1'='1</code>.",
     expectedCmd: "sqli ' or '1'='1",
-    hint: "Type: sqli ' or '1'='1"
+    hint: "Enter exactly: sqli ' OR '1'='1"
   },
   {
     step: 4,
@@ -469,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let matched = false;
 
             if (currentStep.step === 1 && cleanCmd === "scan") matched = true;
-            if (currentStep.step === 3 && (cleanCmd.includes("sqli") || cleanCmd.includes("1"))) matched = true;
+            if (currentStep.step === 3 && cleanCmd.replace(/\s+/g, " ") === currentStep.expectedCmd) matched = true;
 
             if (matched) {
               currentStepIndex++;

@@ -22,14 +22,23 @@ class CommandRequest(BaseModel):
 
 @app.post("/api/terminal")
 async def process_terminal_command(req: CommandRequest):
-    cmd = req.command.strip().lower()
+    cmd = " ".join(req.command.split()).lower()
     
     if cmd == "help":
-        return {"output": "Available commands: scan, curl, sqli, dump, clear"}
+        return {
+            "output": "Available commands:\n"
+            "scan\n"
+            "curl http://target:8080\n"
+            "sqli ' OR '1'='1\n"
+            "dump users\n"
+            "clear (clears the terminal)"
+        }
     elif cmd == "scan":
         return {"output": "[+] Scanning 127.0.0.1...\n[!] Found Port 8080: HTTP (Vulnerable Login Portal)"}
     elif cmd == "curl http://target:8080":
         return {"output": "HTTP/1.1 200 OK\nServer: Dera360-Auth-Service v1.0\nAuth-Type: SQL Database Check"}
+    elif cmd == "sqli":
+        return {"output": "Usage: sqli ' OR '1'='1"}
     elif cmd == "sqli ' or '1'='1":
         return {"output": "[SUCCESS] Query executed: SELECT * FROM users WHERE user='' OR '1'='1';\n[!] Access Granted! Logged in as ADMIN."}
     elif cmd == "dump users":

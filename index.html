@@ -77,8 +77,8 @@
                 <ol>
                   <li id="task-1">Type <code>scan</code> in terminal for recon.</li>
                   <li id="task-2">Open Firefox and inspect <code>http://target:8080</code>.</li>
-                  <li id="task-3">Type <code>sqli ' or '1'='1</code> to bypass bank login.</li>
-                  <li id="task-4">Check <code>http://soc.internal</code> to view logs.</li>
+                  <li id="task-3">In the terminal, enter exactly: <code>sqli ' OR '1'='1</code>.</li>
+                  <li id="task-4">In Firefox, open the <strong>SOC Threat Log</strong> tab to verify the event.</li>
                 </ol>
               </div>
 
@@ -89,11 +89,10 @@
                 <ul style="padding-left: 16px; font-size: 11px; color: #cbd5e1;">
                   <li><code>help</code> - Show command dictionary</li>
                   <li><code>scan</code> - Network reconnaissance</li>
-                  <li><code>curl [url]</code> - Probe web targets</li>
-                  <li><code>sqli [payload]</code> - Test database injection</li>
-                  <li><code>dump users</code> - View database records</li>
-                  <li><code>whoami</code> - Check current session user</li>
-                  <li><code>clear</code> - Clear terminal history</li>
+                  <li><code>curl http://target:8080</code> - Inspect the simulated web service</li>
+                  <li><code>sqli ' OR '1'='1</code> - Run the lab's simulated SQL injection</li>
+                  <li><code>dump users</code> - View the simulated database records</li>
+                  <li><code>clear</code> - Clear terminal history (client-side)</li>
                 </ul>
               </div>
             </div>
@@ -184,7 +183,7 @@
                 
                 <div class="command-line">
                   <span class="prompt">guest@dera360:~$</span>
-                  <input type="text" id="terminal-input" placeholder="type a command..." autocomplete="off" spellcheck="false">
+                  <input type="text" id="terminal-input" placeholder="Type a command (try help)..." autocomplete="off" spellcheck="false">
                 </div>
               </div>
             </div>
@@ -236,7 +235,7 @@
   </footer>
 
   <!-- Local Script File -->
-  <script src="script.js?v=1.10"></script>
+  <script src="script.js?v=1.11"></script>
   
   <!-- Google Translate Async Script -->
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
