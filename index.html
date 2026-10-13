@@ -6,7 +6,7 @@
   <title>Dera Three Sixty Cybersecurity | Awareness & Sandbox</title>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=1.12">
+  <link rel="stylesheet" href="style.css?v=1.13">
 </head>
 <body>
 
@@ -85,15 +85,35 @@
               <!-- Free Sandbox Reference Guide (Shown in Sandbox Mode) -->
               <div id="sandbox-instructions" style="display: none;">
                 <h3>⚡ Sandbox Quick Reference</h3>
-                <p style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">Explore freely! Available commands:</p>
-                <ul style="padding-left: 16px; font-size: 11px; color: #cbd5e1;">
-                  <li><code>help</code> - Show command dictionary</li>
-                  <li><code>scan</code> - Network reconnaissance</li>
-                  <li><code>curl http://target:8080</code> - Inspect the simulated web service</li>
-                  <li><code>sqli ' OR '1'='1</code> - Run the lab's simulated SQL injection</li>
-                  <li><code>dump users</code> - View the simulated database records</li>
-                  <li><code>clear</code> - Clear terminal history (client-side)</li>
-                </ul>
+                <p class="command-guide-intro">Explore freely, or expand a command below to see what it does.</p>
+              </div>
+
+              <div class="command-guide">
+                <h3>⌨️ Command guide</h3>
+                <details class="command-card">
+                  <summary><code>help</code><span>Show available commands</span></summary>
+                  <p>Prints the command list in the terminal. Start here if you are unsure what to try.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>scan</code><span>Discover a simulated service</span></summary>
+                  <p>Runs a scripted scan inside this lab and reports the mock bank portal. It does not scan the internet or your device.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>curl http://target:8080</code><span>Inspect the mock portal</span></summary>
+                  <p>Displays sample HTTP response headers for the simulated bank website, like a basic web request inspection.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>sqli ' OR '1'='1</code><span>Unlock the training admin view</span></summary>
+                  <p>Demonstrates how an unsafe login check can be bypassed. In this project, the result only unlocks the mock bank dashboard in your lab session.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>dump users</code><span>View sample records</span></summary>
+                  <p>Prints fictional training data in the terminal. No real database is queried or exposed.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>clear</code><span>Clear terminal output</span></summary>
+                  <p>Clears the visible terminal history in your browser. It does not change server data.</p>
+                </details>
               </div>
             </div>
 
@@ -235,7 +255,7 @@
   </footer>
 
   <!-- Local Script File -->
-  <script src="script.js?v=1.12"></script>
+  <script src="script.js?v=1.13"></script>
   
   <!-- Google Translate Async Script -->
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
