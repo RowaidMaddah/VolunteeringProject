@@ -216,9 +216,9 @@ article p:last-child {
 }
 
 .command-guide {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid #334155;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #334155;
 }
 
 .command-guide h3 {
@@ -782,6 +782,22 @@ html.translated-rtl header {
   transition: all 0.2s ease;
   margin-bottom: 4px;
   border: 1px solid transparent;
+}
+
+.instructions-card ol li strong,
+.instructions-card ol li small {
+  display: block;
+}
+
+.instructions-card ol li strong {
+  margin-bottom: 3px;
+}
+
+.instructions-card ol li small {
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 .instructions-card ol li.active-task {

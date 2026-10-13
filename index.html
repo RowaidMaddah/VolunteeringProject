@@ -6,7 +6,7 @@
   <title>Dera Three Sixty Cybersecurity | Awareness & Sandbox</title>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=1.13">
+  <link rel="stylesheet" href="style.css?v=1.14">
 </head>
 <body>
 
@@ -71,25 +71,9 @@
             </div>
 
             <div class="instructions-card">
-              <!-- Guided Lab Tasks (Shown in Tutorial Mode) -->
-              <div id="guided-instructions">
-                <h3>📋 Module 01: Lab Tasks</h3>
-                <ol>
-                  <li id="task-1">Type <code>scan</code> in terminal for recon.</li>
-                  <li id="task-2">Open Firefox and inspect <code>http://target:8080</code>.</li>
-                  <li id="task-3">In the terminal, enter <code>sqli ' OR '1'='1</code> to unlock the simulated admin dashboard.</li>
-                  <li id="task-4">In Firefox, open <strong>SOC Threat Log</strong> to review this session's simulated event.</li>
-                </ol>
-              </div>
-
-              <!-- Free Sandbox Reference Guide (Shown in Sandbox Mode) -->
-              <div id="sandbox-instructions" style="display: none;">
-                <h3>⚡ Sandbox Quick Reference</h3>
-                <p class="command-guide-intro">Explore freely, or expand a command below to see what it does.</p>
-              </div>
-
               <div class="command-guide">
                 <h3>⌨️ Command guide</h3>
+                <p class="command-guide-intro">See what each command does before you try it.</p>
                 <details class="command-card">
                   <summary><code>help</code><span>Show available commands</span></summary>
                   <p>Prints the command list in the terminal. Start here if you are unsure what to try.</p>
@@ -114,6 +98,23 @@
                   <summary><code>clear</code><span>Clear terminal output</span></summary>
                   <p>Clears the visible terminal history in your browser. It does not change server data.</p>
                 </details>
+              </div>
+
+              <!-- Guided Lab Tasks (Shown in Tutorial Mode) -->
+              <div id="guided-instructions">
+                <h3>📋 Module 01: Lab Tasks</h3>
+                <ol>
+                  <li id="task-1"><strong>Discover the mock service</strong><code>scan</code><small>Finds the training bank portal inside this simulated network.</small></li>
+                  <li id="task-2"><strong>Inspect the bank portal</strong><code>http://target:8080</code><small>Open Firefox and select the Apex Trust Bank tab.</small></li>
+                  <li id="task-3"><strong>Try the simulated login bypass</strong><code>sqli ' OR '1'='1</code><small>Enter this full command in the terminal to unlock the mock admin dashboard.</small></li>
+                  <li id="task-4"><strong>Review the security event</strong><code>http://soc.internal</code><small>Open the SOC Threat Log tab in Firefox to see this session's simulated event.</small></li>
+                </ol>
+              </div>
+
+              <!-- Free Sandbox Reference Guide (Shown in Sandbox Mode) -->
+              <div id="sandbox-instructions" style="display: none;">
+                <h3>⚡ Sandbox Quick Reference</h3>
+                <p class="command-guide-intro">Use the command guide above as a reference while exploring.</p>
               </div>
             </div>
 
@@ -255,7 +256,7 @@
   </footer>
 
   <!-- Local Script File -->
-  <script src="script.js?v=1.13"></script>
+  <script src="script.js?v=1.14"></script>
   
   <!-- Google Translate Async Script -->
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
