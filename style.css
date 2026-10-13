@@ -451,65 +451,57 @@ footer {
   color: #64748b;
 }
 
-/* --- RESTORED DARK GOOGLE TRANSLATE WIDGET STYLES --- */
+/* Google Translate selector */
 
 .language-selector {
   display: flex;
   align-items: center;
-  margin-left: 15px;
+  margin-left: 20px;
 }
 
-.goog-te-gadget-simple {
-  background-color: #0f172a !important;
-  border: 1px solid #38bdf8 !important;
-  padding: 5px 10px !important;
-  border-radius: 6px !important;
-  font-size: 13px !important;
-  font-family: inherit !important;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  display: flex !important;
+#google_translate_element .goog-te-gadget {
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
+  color: #94a3b8;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: nowrap;
 }
 
-.goog-te-gadget-simple:hover {
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5) !important;
-  border-color: #00f0ff !important;
+#google_translate_element .goog-te-gadget a {
+  text-decoration: none;
 }
 
-.goog-te-gadget .goog-te-combo {
+#google_translate_element .goog-te-combo {
+  min-width: 150px;
+  min-height: 42px;
+  margin: 0;
+  padding: 8px 38px 8px 14px;
   background-color: #0f172a;
   border: 1px solid #38bdf8;
-  border-radius: 6px;
+  border-radius: 8px;
   color: #38bdf8;
   cursor: pointer;
   font: inherit;
-  padding: 5px 10px;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%2338bdf8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
 }
 
-.goog-te-gadget .goog-te-combo:focus-visible {
+#google_translate_element .goog-te-combo:hover,
+#google_translate_element .goog-te-combo:focus-visible {
+  border-color: #00f0ff;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+}
+
+#google_translate_element .goog-te-combo:focus-visible {
   outline: 2px solid #00f0ff;
   outline-offset: 2px;
-}
-
-.goog-te-gadget-simple span,
-.goog-te-gadget-simple a,
-.goog-te-menu-value span {
-  color: #38bdf8 !important;
-  font-weight: 500 !important;
-  text-decoration: none !important;
-}
-
-.goog-te-gadget-icon,
-.goog-te-gadget-simple img {
-  display: none !important;
-}
-
-.cyber-globe-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 html, body {
@@ -973,7 +965,5 @@ html.translated-rtl header {
   position: relative;
   z-index: 10;
 }
-
-
 
 
