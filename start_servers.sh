@@ -1,3 +1,6 @@
+#BUILT IN COPILOT IN CODESPACES DID THIS FOR ME
+
+
 #!/usr/bin/env bash
 set -euo pipefail
 
