@@ -1,6 +1,5 @@
-// ==========================================
-// 1. FASTAPI BACKEND API INTEGRATION
-// ==========================================
+
+
 const PUBLIC_API_BASE_URL = 'https://volunteeringproject-api.onrender.com';
 
 function getApiBaseUrl() {
@@ -54,9 +53,7 @@ async function sendCommand(userInput) {
   }
 }
 
-// ==========================================
-// 2. GUIDED TUTORIAL STATE MACHINE (INTEGRATED)
-// ==========================================
+//the tutorial thingy
 const tutorialSteps = [
   {
     step: 1,
@@ -112,7 +109,7 @@ function renderStep(index) {
     }
   }
 
-  // Highlight or un-highlight ONLY the Firefox icon image on Step 2
+  // Cosmetic effect on the app 
   const browserIconImg = document.querySelector('#browser-icon-btn .icon-img');
   if (browserIconImg) {
     if (index === 1) { // Step 2 (0-indexed)
@@ -137,14 +134,10 @@ function renderStep(index) {
   document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
 }
 
-// ==========================================
-// 3. DOM INTERACTION & EVENT LISTENERS
-// ==========================================
+
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ==========================================
-  // WALLPAPER BACKGROUND STATE MANAGER
-  // ==========================================
+
   const terminalWindow = document.getElementById('terminal-window');
   const firefoxWindow = document.getElementById('firefox-window');
   const desktopWallpaper = document.getElementById('desktop-wallpaper');
@@ -154,16 +147,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const terminalOpen = terminalWindow.style.display !== 'none';
     const browserOpen = firefoxWindow.style.display !== 'none';
     
-    // Show wallpaper ONLY when both windows are closed/hidden
+    // Show wallpaper ONLY when both windows are closed
     desktopWallpaper.style.display = (!terminalOpen && !browserOpen) ? 'flex' : 'none';
   }
 
-  // Run on startup
+
   updateWallpaperState();
 
-  // ==========================================
-  // FIREFOX BROWSER SIMULATION (MULTI-TAB ENGINE)
-  // ==========================================
+
   const browserIcon = document.getElementById('browser-icon-btn');
   const closeFirefoxBtn = document.getElementById('close-firefox-btn');
   const browserUrlInput = document.getElementById('browser-url-input');
@@ -249,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Mock Websites Dictionary
+
   const mockWebsites = {
     "http://target:8080": getBankPage,
     "http://soc.internal": getSocPage,
@@ -447,9 +438,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ==========================================
-  // TERMINAL & TUTORIAL STATE CONTROLLERS
-  // ==========================================
   const terminalInput = document.getElementById('terminal-input');
   const terminalOutput = document.getElementById('terminal-output');
   const closeBtn = document.getElementById('close-terminal-btn');
@@ -590,9 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderStep(0);
 });
 
-// ==========================================
-// 6. GOOGLE TRANSLATE WIDGET INITIALIZATION
-// ==========================================
+//translate button
 window.googleTranslateElementInit = function() {
   try {
     if (typeof google !== 'undefined' && google.translate) {
