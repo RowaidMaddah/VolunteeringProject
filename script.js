@@ -97,7 +97,6 @@ function renderStep(index) {
   if (prevBtn) prevBtn.disabled = index === 0;
   if (nextBtn) nextBtn.disabled = index >= tutorialSteps.length - 1;
 
-  // Highlight active task in sidebar
   for (let i = 1; i <= 4; i++) {
     const taskLi = document.getElementById(`task-${i}`);
     if (taskLi) {
@@ -109,10 +108,9 @@ function renderStep(index) {
     }
   }
 
-  // Cosmetic effect on the app 
   const browserIconImg = document.querySelector('#browser-icon-btn .icon-img');
   if (browserIconImg) {
-    if (index === 1) { // Step 2 (0-indexed)
+    if (index === 1) {
       browserIconImg.classList.add('tutorial-highlight');
     } else {
       browserIconImg.classList.remove('tutorial-highlight');
@@ -172,8 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
         osc.stop(ctx.currentTime + 0.12);
       } else if (type === 'success') {
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
-        osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+        osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+        osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
         gain.gain.setValueAtTime(0.08, ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
         osc.start();
@@ -192,8 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!desktopWallpaper || !terminalWindow || !firefoxWindow) return;
     const terminalOpen = terminalWindow.style.display !== 'none';
     const browserOpen = firefoxWindow.style.display !== 'none';
-    
-    // Show wallpaper ONLY when both windows are closed
     desktopWallpaper.style.display = (!terminalOpen && !browserOpen) ? 'flex' : 'none';
   }
 
@@ -361,13 +357,11 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTabs();
     renderPageContent(tab.title, tab.url);
 
-    // Auto-advance Step 2 when user clicks the Bank tab
     if (isTutorialMode && currentStepIndex === 1 && tabId === 1) {
       currentStepIndex++;
       renderStep(currentStepIndex);
     }
 
-    // Auto-advance Step 4 when user clicks the SOC tab
     if (isTutorialMode && currentStepIndex === 3 && tabId === 2) {
       currentStepIndex++;
       renderStep(currentStepIndex);
@@ -486,7 +480,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Phishing Report Click Handler
   document.addEventListener('click', (e) => {
     if (e.target && e.target.id === 'report-phish-btn') {
       playSound('success');
@@ -636,7 +629,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Contact Form Submission Handler
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -677,7 +669,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderStep(0);
 });
 
-// Translate button initialization
 window.googleTranslateElementInit = function() {
   try {
     if (typeof google !== 'undefined' && google.translate) {
