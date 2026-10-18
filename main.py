@@ -29,10 +29,6 @@ async def process_terminal_command(req: CommandRequest):
         return {
             "output": "Available commands:\n"
             "scan\n"
-            "nmap\n"
-            "matrix\n"
-            "sudo (simulated; elevated commands are disabled)\n"
-            "cat flag.txt\n"
             "curl http://target:8080\n"
             "sqli ' OR '1'='1\n"
             "dump users\n"

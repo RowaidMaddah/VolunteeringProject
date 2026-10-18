@@ -563,6 +563,47 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
 
+  function getTeamResourcesPage() {
+    return `
+      <div class="mock-page">
+        <p class="bank-eyebrow">DERA 360 · INTERNAL RESOURCES</p>
+        <h2>Volunteer Resource Center</h2>
+        <p>Find onboarding materials, project templates, and support contacts for your volunteer work.</p>
+        <section class="resource-list">
+          <h3>Getting started</h3>
+          <ul>
+            <li>Volunteer onboarding checklist</li>
+            <li>Community project planning guide</li>
+            <li>Technical support: helpdesk@dera360.example</li>
+          </ul>
+        </section>
+        <button class="mock-action-button" id="open-secret-page-btn" type="button">~secretpage~</button>
+      </div>
+    `;
+  }
+
+  function getSecretNotepadPage() {
+    return `
+      <div class="mock-page secret-notepad">
+        <p class="bank-eyebrow">NOTEPAD · LOCAL TRAINING NOTES</p>
+        <h2>Lab notes.txt</h2>
+        <pre>DERA 360 TRAINING LAB
+
+You found the hidden notes.
+
+FLAG
+TRAINING{curiosity_is_a_good_defense}
+
+BONUS TERMINAL COMMANDS
+matrix       Show a curious message
+nmap         View a simulated scan (no network traffic)
+sudo         Try the disabled admin command
+cat flag.txt Read the training flag</pre>
+        <p class="notepad-disclaimer">These commands only work in this simulated terminal. No real system commands are run.</p>
+      </div>
+    `;
+  }
+
 
 
   function grantSimulatedAdminAccess() {
@@ -589,7 +630,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     "http://soc.internal": getSocPage,
 
-    "http://phish-alert.local": getPhishingPage
+    "http://phish-alert.local": getPhishingPage,
+
+    "http://intranet.local": getTeamResourcesPage,
+
+    "http://intranet.local/notes.txt": getSecretNotepadPage
 
   };
 
@@ -601,7 +646,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     { id: 2, url: "http://soc.internal", title: "SOC Threat Log", history: ["http://soc.internal"], historyIndex: 0 },
 
-    { id: 3, url: "http://phish-alert.local", title: "IT Alert Portal", history: ["http://phish-alert.local"], historyIndex: 0 }
+    { id: 3, url: "http://phish-alert.local", title: "IT Alert Portal", history: ["http://phish-alert.local"], historyIndex: 0 },
+
+    { id: 4, url: "http://intranet.local", title: "Volunteer Resources", history: ["http://intranet.local"], historyIndex: 0 }
 
   ];
 
@@ -673,6 +720,15 @@ document.addEventListener('DOMContentLoaded', () => {
       reportStatus.classList.add('is-success');
       playSound('success');
     });
+  }
+
+  function bindTeamResourcesPageActions() {
+    const secretPageButton = browserViewport.querySelector('#open-secret-page-btn');
+    if (secretPageButton) {
+      secretPageButton.addEventListener('click', () => {
+        navigateActiveTab('http://intranet.local/notes.txt');
+      });
+    }
   }
 
 
@@ -788,6 +844,7 @@ document.addEventListener('DOMContentLoaded', () => {
       browserViewport.classList.remove('is-loading');
       bindBankPageActions();
       bindPhishingPageActions();
+      bindTeamResourcesPageActions();
     }, 350);
 
   }
@@ -817,6 +874,8 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (url.includes("soc")) tab.title = "SOC Threat Log";
 
     else if (url.includes("phish")) tab.title = "IT Alert Portal";
+
+    else if (url.includes("intranet")) tab.title = "Volunteer Resources";
 
     else tab.title = url.replace("http://", "").substring(0, 15);
 

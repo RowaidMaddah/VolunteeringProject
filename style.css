@@ -1479,8 +1479,50 @@ html.translated-rtl header {
   font-size: 13px;
 }
 
+.resource-list {
+  max-width: 620px;
+  margin: 20px 0;
+  padding: 18px 20px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #334155;
+}
+
+.resource-list h3 {
+  color: #0369a1;
+}
+
+.resource-list ul {
+  padding-left: 20px;
+}
+
+.secret-notepad {
+  max-width: 720px;
+}
+
+.secret-notepad pre {
+  margin: 16px 0;
+  padding: 20px;
+  overflow-x: auto;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #1e293b;
+  font: 13px/1.7 "Courier New", Courier, monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.notepad-disclaimer {
+  color: #64748b !important;
+  font-size: 12px;
+}
+
 @media (max-width: 480px) {
-  .phishing-email {
+  .phishing-email,
+  .resource-list,
+  .secret-notepad pre {
     padding: 14px;
   }
 }
