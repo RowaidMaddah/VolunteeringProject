@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dera Three Sixty Cybersecurity | Awareness & Sandbox</title>
   
-  
   <link rel="stylesheet" href="style.css?v=1.14">
 </head>
 <body>
@@ -56,7 +55,7 @@
             <span class="taskbar-item active">Desktop</span>
           </div>
           <div class="taskbar-right">
-            <span>🔊 100%</span>
+            <span id="sfx-toggle" style="cursor: pointer;" title="Toggle Sound Effects">🔊 SFX: ON</span>
             <span>📶 Connected</span>
             <span id="system-clock">18:29</span>
           </div>
@@ -93,6 +92,18 @@
                 <details class="command-card">
                   <summary><code>dump users</code><span>View sample records</span></summary>
                   <p>Prints fictional training data in the terminal. No real database is queried or exposed.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>matrix</code><span>Simulate neural interface</span></summary>
+                  <p>Spits out simulated binary data streams in the terminal.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>nmap</code><span>Advanced port mapping</span></summary>
+                  <p>Runs a simulated Nmap scan report on target infrastructure.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>cat flag.txt</code><span>Retrieve secret CTF flag</span></summary>
+                  <p>Displays a capture-the-flag reward string for completing security modules.</p>
                 </details>
                 <details class="command-card">
                   <summary><code>clear</code><span>Clear terminal output</span></summary>
@@ -149,7 +160,6 @@
 
               <div class="browser-tab-bar" id="browser-tab-bar"></div>
 
-
               <div class="browser-nav-bar">
                 <button id="browser-back-btn" title="Back">⬅</button>
                 <button id="browser-forward-btn" title="Forward">➡</button>
@@ -158,10 +168,8 @@
                 <button id="browser-go-btn">Go</button>
               </div>
 
-
               <div class="browser-viewport" id="browser-viewport-content"></div>
             </div>
-
 
             <div id="tutorial-popup" class="tutorial-card">
               <div class="tutorial-header">
@@ -178,7 +186,6 @@
                 <span id="step-hint">💡 Hint: Commands are lower-case.</span>
               </div>
             </div>
-
 
             <div class="desktop-window notranslate" id="terminal-window">
               <div class="window-header">
@@ -240,8 +247,19 @@
 
     <section id="contact">
       <h2>Contact Us!</h2>
-      <p>Have questions about cybersecurity awareness? Get in touch by email.</p>
-      <a class="contact-email" href="mailto:rowaidmaddah1@gmail.com">Email Rowaid</a>
+      <p>Have questions about cybersecurity awareness or want to get in touch? Send a message directly through our secure backend mail relay.</p>
+      
+      <form id="contact-form" style="max-width: 480px; margin-top: 20px; display: grid; gap: 12px; background: #1e293b; padding: 24px; border-radius: 10px; border: 1px solid #334155;">
+        <div>
+          <label for="user-email" style="display: block; font-size: 13px; color: #94a3b8; margin-bottom: 6px;">Your Email:</label>
+          <input type="email" id="user-email" placeholder="name@example.com" required style="width: 100%; padding: 10px; background: #0f172a; border: 1px solid #475569; color: #f8fafc; border-radius: 6px;">
+        </div>
+        <div>
+          <label for="user-message" style="display: block; font-size: 13px; color: #94a3b8; margin-bottom: 6px;">Your Message:</label>
+          <textarea id="user-message" rows="4" placeholder="Write your message here..." required style="width: 100%; padding: 10px; background: #0f172a; border: 1px solid #475569; color: #f8fafc; border-radius: 6px; resize: none;"></textarea>
+        </div>
+        <button type="submit" id="submit-btn" style="background: #0284c7; color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s;">Send Message</button>
+      </form>
     </section>
   </main>
 
@@ -249,10 +267,8 @@
     <p>&copy; 2026 Dera Three Sixty Cybersecurity | Designed for Volunteer Portfolio Showcase</p>
   </footer>
 
-
   <script src="script.js?v=1.14"></script>
   
-
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
