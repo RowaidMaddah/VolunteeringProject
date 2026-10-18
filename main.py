@@ -11,6 +11,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://rowaidmaddah.github.io",
+        "https://volunteeringproject-api.onrender.com",
         "http://localhost:8080",
         "http://127.0.0.1:8080",
     ],
