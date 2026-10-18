@@ -6,7 +6,7 @@
   <title>Dera Three Sixty Cybersecurity | Awareness & Sandbox</title>
 
 
-  <link rel="stylesheet" href="style.css?v=1.16">
+  <link rel="stylesheet" href="style.css?v=1.17">
 </head>
 <body>
 
@@ -56,7 +56,8 @@
             <span class="taskbar-item active">Desktop</span>
           </div>
           <div class="taskbar-right">
-            <span>🔊 100%</span>
+            <button class="sfx-toggle" id="sfx-toggle" type="button" aria-label="Enable sound effects" aria-pressed="false">🔇 SFX Off</button>
+            <span id="sfx-status" class="visually-hidden" aria-live="polite"></span>
             <span>📶 Connected</span>
             <span id="system-clock">18:29</span>
           </div>
@@ -98,6 +99,22 @@
                   <summary><code>clear</code><span>Clear terminal output</span></summary>
                   <p>Clears the visible terminal history in your browser. It does not change server data.</p>
                 </details>
+                <details class="command-card">
+                  <summary><code>matrix</code><span>Run a cinematic terminal effect</span></summary>
+                  <p>Displays a harmless text-only movie-inspired message.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>nmap</code><span>Scan the simulated target</span></summary>
+                  <p>Shows mock ports for the training target. It does not scan your device or any real network.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>sudo</code><span>Try a restricted command</span></summary>
+                  <p>Demonstrates that administrator commands are disabled in this simulated terminal.</p>
+                </details>
+                <details class="command-card">
+                  <summary><code>cat flag.txt</code><span>Find the training flag</span></summary>
+                  <p>Prints a fictional flag stored in the training simulation.</p>
+                </details>
               </div>
 
               <div id="guided-instructions">
@@ -113,6 +130,7 @@
               <div id="sandbox-instructions" style="display: none;">
                 <h3>⚡ Sandbox Quick Reference</h3>
                 <p class="command-guide-intro">Use the command guide above as a reference while exploring.</p>
+                <p class="command-guide-intro">Open Firefox and choose the IT Alert Portal tab to practice reporting a spear-phishing email.</p>
               </div>
             </div>
 
@@ -250,7 +268,7 @@
   </footer>
 
 
-  <script src="script.js?v=1.14"></script>
+  <script src="script.js?v=1.15"></script>
 
 
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

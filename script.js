@@ -279,6 +279,72 @@ document.addEventListener('DOMContentLoaded', () => {
   const firefoxWindow = document.getElementById('firefox-window');
 
   const desktopWallpaper = document.getElementById('desktop-wallpaper');
+  const soundToggle = document.getElementById('sfx-toggle');
+  const soundStatus = document.getElementById('sfx-status');
+  let soundEnabled = false;
+  let audioContext = null;
+
+  function updateSoundToggle() {
+    if (!soundToggle) return;
+    soundToggle.textContent = soundEnabled ? '🔊 SFX On' : '🔇 SFX Off';
+    soundToggle.setAttribute('aria-pressed', String(soundEnabled));
+    soundToggle.setAttribute(
+      'aria-label',
+      soundEnabled ? 'Disable sound effects' : 'Enable sound effects'
+    );
+  }
+
+  function playSound(type) {
+    if (!soundEnabled || !audioContext) return;
+
+    const frequencies = { command: 440, success: 740, error: 220 };
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    const now = audioContext.currentTime;
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(frequencies[type], now);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.06, now + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    oscillator.start(now);
+    oscillator.stop(now + 0.15);
+  }
+
+  if (soundToggle) {
+    soundToggle.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+
+      if (soundEnabled && !window.AudioContext) {
+        soundEnabled = false;
+        if (soundStatus) soundStatus.textContent = 'Web Audio is not supported in this browser.';
+        updateSoundToggle();
+        return;
+      }
+
+      if (soundEnabled && !audioContext) {
+        try {
+          audioContext = new window.AudioContext();
+        } catch (error) {
+          console.error('Unable to initialize sound effects:', error);
+          soundEnabled = false;
+          if (soundStatus) soundStatus.textContent = 'Sound effects could not be initialized.';
+          updateSoundToggle();
+          return;
+        }
+      }
+
+      updateSoundToggle();
+      if (soundStatus) {
+        soundStatus.textContent = soundEnabled
+          ? 'Sound effects enabled.'
+          : 'Sound effects disabled.';
+      }
+      if (soundEnabled) playSound('success');
+    });
+  }
 
 
 
@@ -327,6 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const browserTabBar = document.getElementById('browser-tab-bar');
 
   let simulatedAdminAccess = false;
+  let phishingReported = false;
 
   let browserRenderId = 0;
 
@@ -460,6 +527,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
+  function getPhishingPage() {
+    return `
+      <div class="mock-page phishing-page">
+        <p class="bank-eyebrow">DERA 360 · PHISHING AWARENESS SIMULATION</p>
+        <h2>Review this suspicious email</h2>
+        <p>This targeted message was created for the training lab. Decide whether you would report it.</p>
+        <article class="phishing-email">
+          <p><strong>From:</strong> Dera 360 IT &lt;it-helpdesk@dera360-security.example&gt;</p>
+          <p><strong>Subject:</strong> Urgent: private grant review requires your approval</p>
+          <p><strong>To:</strong> Alex</p>
+          <hr>
+          <p>Hi Alex,</p>
+          <p>I need you to review the confidential volunteer grant file before the end of the day. I am in a meeting, so please use the private review portal below and keep this request between us.</p>
+          <p>Thanks,<br>IT Support</p>
+          <p class="phishing-link-preview">[External review link hidden in this simulation]</p>
+        </article>
+        <div class="phishing-actions">
+          <button class="mock-action-button" id="report-phishing-btn" type="button" ${phishingReported ? 'disabled' : ''}>
+            ${phishingReported ? 'Reported' : 'Report spear-phishing email'}
+          </button>
+          <p class="phishing-report-status ${phishingReported ? 'is-success' : ''}" id="phishing-report-status" role="status" aria-live="polite">
+            ${phishingReported ? 'Report received! You correctly identified a targeted phishing attempt.' : ''}
+          </p>
+        </div>
+        <details class="phishing-clues">
+          <summary>Review the warning signs</summary>
+          <ul>
+            <li>The sender address imitates IT but uses an unfamiliar domain.</li>
+            <li>The message pressures you to act quickly and keep the request secret.</li>
+            <li>An unexpected external link is used to review a confidential file.</li>
+          </ul>
+        </details>
+      </div>
+    `;
+  }
+
 
 
   function grantSimulatedAdminAccess() {
@@ -486,33 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     "http://soc.internal": getSocPage,
 
-    "http://phish-alert.local": `
-
-      <div class="mock-page">
-
-        <h2>⚠️ Corporate IT Alert: Password Expiry Notice</h2>
-
-        <p style="color: #dc2626; font-weight: bold;">Your enterprise network credentials expire in 2 hours!</p>
-
-        <p>To prevent account lockout, please verify your corporate credentials immediately.</p>
-
-        <div style="background: rgba(239, 68, 68, 0.05); border: 1px solid #fca5a5; padding: 16px; border-radius: 8px; max-width: 320px;">
-
-          <label style="font-size: 12px; color: #475569;">Corporate Email:</label>
-
-          <input type="text" placeholder="user@company.com" style="width:100%; padding:6px; margin:4px 0 12px 0; background:#ffffff; border:1px solid #cbd5e1; color:#1e293b; border-radius:4px;">
-
-          <label style="font-size: 12px; color: #475569;">Current Password:</label>
-
-          <input type="password" placeholder="••••••••" style="width:100%; padding:6px; margin:4px 0 16px 0; background:#ffffff; border:1px solid #cbd5e1; color:#1e293b; border-radius:4px;">
-
-          <button style="width:100%; background:#dc2626; color:#fff; border:none; padding:8px; border-radius:4px; font-weight:bold; cursor:pointer;">Verify Account</button>
-
-        </div>
-
-      </div>
-
-    `
+    "http://phish-alert.local": getPhishingPage
 
   };
 
@@ -580,6 +657,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+  }
+
+  function bindPhishingPageActions() {
+    const reportButton = browserViewport.querySelector('#report-phishing-btn');
+    const reportStatus = browserViewport.querySelector('#phishing-report-status');
+
+    if (!reportButton || !reportStatus) return;
+
+    reportButton.addEventListener('click', () => {
+      phishingReported = true;
+      reportButton.disabled = true;
+      reportButton.textContent = 'Reported';
+      reportStatus.textContent = 'Report received! You correctly identified a targeted phishing attempt.';
+      reportStatus.classList.add('is-success');
+      playSound('success');
+    });
   }
 
 
@@ -693,9 +786,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
       browserViewport.classList.remove('is-loading');
-
       bindBankPageActions();
-
+      bindPhishingPageActions();
     }, 350);
 
   }
@@ -1037,7 +1129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>Type 'help' to display available commands.</p>
 
           `;
-
+          playSound('command');
           return;
 
         }
@@ -1055,6 +1147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         responseLine.textContent = result;
 
         terminalOutput.appendChild(responseLine);
+        playSound(result.startsWith('Error:') ? 'error' : result.startsWith('[SUCCESS]') ? 'success' : 'command');
 
 
 
