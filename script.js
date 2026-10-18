@@ -1,5 +1,3 @@
-
-
 const PUBLIC_API_BASE_URL = 'https://volunteeringproject-api.onrender.com';
 
 function getApiBaseUrl() {
@@ -53,7 +51,9 @@ async function sendCommand(userInput) {
   }
 }
 
-//the tutorial thingy
+// ==========================================
+// GUIDED TUTORIAL STATE MACHINE
+// ==========================================
 const tutorialSteps = [
   {
     step: 1,
@@ -134,9 +134,55 @@ function renderStep(index) {
   document.getElementById('step-hint').textContent = `💡 Hint: ${stepData.hint}`;
 }
 
-
+// ==========================================
+// DOM INTERACTION & EVENT LISTENERS
+// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
 
+  // ==========================================
+  // WEB AUDIO SFX SYNTHESIZER
+  // ==========================================
+  let sfxEnabled = true;
+  const sfxToggleBtn = document.getElementById('sfx-toggle');
+
+  if (sfxToggleBtn) {
+    sfxToggleBtn.addEventListener('click', () => {
+      sfxEnabled = !sfxEnabled;
+      sfxToggleBtn.textContent = sfxEnabled ? '🔊 SFX: ON' : '🔇 SFX: OFF';
+    });
+  }
+
+  function playSound(type) {
+    if (!sfxEnabled) return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      if (type === 'open') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(300, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.12);
+      } else if (type === 'success') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+        osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.25);
+      }
+    } catch (e) {
+      console.log("SFX error:", e);
+    }
+  }
 
   const terminalWindow = document.getElementById('terminal-window');
   const firefoxWindow = document.getElementById('firefox-window');
@@ -151,9 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     desktopWallpaper.style.display = (!terminalOpen && !browserOpen) ? 'flex' : 'none';
   }
 
-
   updateWallpaperState();
-
 
   const browserIcon = document.getElementById('browser-icon-btn');
   const closeFirefoxBtn = document.getElementById('close-firefox-btn');
@@ -240,7 +284,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-
   const mockWebsites = {
     "http://target:8080": getBankPage,
     "http://soc.internal": getSocPage,
@@ -249,13 +292,17 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>⚠️ Corporate IT Alert: Password Expiry Notice</h2>
         <p style="color: #dc2626; font-weight: bold;">Your enterprise network credentials expire in 2 hours!</p>
         <p>To prevent account lockout, please verify your corporate credentials immediately.</p>
-        <div style="background: rgba(239, 68, 68, 0.05); border: 1px solid #fca5a5; padding: 16px; border-radius: 8px; max-width: 320px;">
+        <div style="background: rgba(239, 68, 68, 0.05); border: 1px solid #fca5a5; padding: 16px; border-radius: 8px; max-width: 320px; margin-bottom: 12px;">
           <label style="font-size: 12px; color: #475569;">Corporate Email:</label>
           <input type="text" placeholder="user@company.com" style="width:100%; padding:6px; margin:4px 0 12px 0; background:#ffffff; border:1px solid #cbd5e1; color:#1e293b; border-radius:4px;">
           <label style="font-size: 12px; color: #475569;">Current Password:</label>
           <input type="password" placeholder="••••••••" style="width:100%; padding:6px; margin:4px 0 16px 0; background:#ffffff; border:1px solid #cbd5e1; color:#1e293b; border-radius:4px;">
           <button style="width:100%; background:#dc2626; color:#fff; border:none; padding:8px; border-radius:4px; font-weight:bold; cursor:pointer;">Verify Account</button>
         </div>
+        <button id="report-phish-btn" style="background: #16a34a; color: white; border: none; padding: 8px 12px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+          🚩 Report as Suspicious Phishing Email
+        </button>
+        <div id="phish-result" style="margin-top: 10px; font-weight: bold;"></div>
       </div>
     `
   };
@@ -412,6 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (browserIcon && firefoxWindow) {
     browserIcon.addEventListener('dblclick', () => {
+      playSound('open');
       firefoxWindow.style.display = 'flex';
       renderTabs();
       switchTab(activeTabId);
@@ -437,6 +485,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Phishing Report Click Handler
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'report-phish-btn') {
+      playSound('success');
+      const resultDiv = document.getElementById('phish-result');
+      if (resultDiv) {
+        resultDiv.style.color = '#16a34a';
+        resultDiv.innerHTML = '🎉 Great catch! You successfully detected and reported a spear-phishing attack.';
+      }
+    }
+  });
 
   const terminalInput = document.getElementById('terminal-input');
   const terminalOutput = document.getElementById('terminal-output');
@@ -569,16 +629,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (terminalIcon && terminalWindow) {
     terminalIcon.addEventListener('dblclick', () => {
+      playSound('open');
       terminalWindow.style.display = 'flex';
       if (terminalInput) terminalInput.focus();
       updateWallpaperState();
     });
   }
 
+  // Contact Form Submission Handler
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = document.getElementById('user-email');
+      const messageInput = document.getElementById('user-message');
+      const submitBtn = document.getElementById('submit-btn');
+
+      const email = emailInput.value.trim();
+      const message = messageInput.value.trim();
+      if (!email || !message) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      try {
+        const response = await fetch(`${getApiBaseUrl()}/api/contact`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, message })
+        });
+        const data = await response.json();
+        if (response.ok) {
+          alert('✅ Message sent successfully! Thank you for reaching out.');
+          contactForm.reset();
+        } else {
+          alert(`❌ Error: ${data.detail || 'Could not send message.'}`);
+        }
+      } catch (error) {
+        alert('❌ Error: Could not connect to the mail server.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      }
+    });
+  }
+
   renderStep(0);
 });
 
-//translate button
+// Translate button initialization
 window.googleTranslateElementInit = function() {
   try {
     if (typeof google !== 'undefined' && google.translate) {
