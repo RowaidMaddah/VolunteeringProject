@@ -541,7 +541,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <p>Hi Alex,</p>
           <p>I need you to review the confidential volunteer grant file before the end of the day. I am in a meeting, so please use the private review portal below and keep this request between us.</p>
           <p>Thanks,<br>IT Support</p>
-          <p class="phishing-link-preview">[External review link hidden in this simulation]</p>
+          <p class="phishing-link-preview">
+            <a id="phishing-link" href="http://secure-review.local/document">Open the confidential grant review</a>
+          </p>
         </article>
         <div class="phishing-actions">
           <button class="mock-action-button" id="report-phishing-btn" type="button" ${phishingReported ? 'disabled' : ''}>
@@ -559,6 +561,26 @@ document.addEventListener('DOMContentLoaded', () => {
             <li>An unexpected external link is used to review a confidential file.</li>
           </ul>
         </details>
+      </div>
+    `;
+  }
+
+  function getPhishingLandingPage() {
+    return `
+      <div class="mock-page phishing-landing">
+        <p class="bank-eyebrow">DERA 360 · PHISHING AWARENESS SIMULATION</p>
+        <div class="phishing-landing-alert" role="alert">
+          <h2>You opened a simulated phishing link</h2>
+          <p>This training page stopped here. It did not ask for or collect any information.</p>
+        </div>
+        <h3>What made the email suspicious?</h3>
+        <ul>
+          <li>The sender used an unfamiliar domain while pretending to be IT.</li>
+          <li>The request added urgency and asked you to keep it secret.</li>
+          <li>The unexpected link promised access to a confidential document.</li>
+        </ul>
+        <p>In a real message, do not enter your password. Close the page and report the email using your organization's approved process.</p>
+        <p class="phishing-landing-note">This is an isolated, fictional exercise. The link did not leave the simulated browser.</p>
       </div>
     `;
   }
@@ -631,6 +653,8 @@ cat flag.txt Read the training flag</pre>
     "http://soc.internal": getSocPage,
 
     "http://phish-alert.local": getPhishingPage,
+
+    "http://secure-review.local/document": getPhishingLandingPage,
 
     "http://intranet.local": getTeamResourcesPage,
 
@@ -707,8 +731,16 @@ cat flag.txt Read the training flag</pre>
   }
 
   function bindPhishingPageActions() {
+    const phishingLink = browserViewport.querySelector('#phishing-link');
     const reportButton = browserViewport.querySelector('#report-phishing-btn');
     const reportStatus = browserViewport.querySelector('#phishing-report-status');
+
+    if (phishingLink) {
+      phishingLink.addEventListener('click', event => {
+        event.preventDefault();
+        navigateActiveTab(phishingLink.href);
+      });
+    }
 
     if (!reportButton || !reportStatus) return;
 
@@ -874,6 +906,8 @@ cat flag.txt Read the training flag</pre>
     else if (url.includes("soc")) tab.title = "SOC Threat Log";
 
     else if (url.includes("phish")) tab.title = "IT Alert Portal";
+
+    else if (url.includes("secure-review")) tab.title = "Document Review Portal";
 
     else if (url.includes("intranet")) tab.title = "Volunteer Resources";
 
